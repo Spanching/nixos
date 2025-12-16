@@ -24,7 +24,7 @@
   };
 
   # Host & Networking
-  networking.hostName = "nixos";
+  networking.hostName = "whitezaziki";
   networking.networkmanager.enable = true;
 
   # Time and Locale
@@ -92,6 +92,7 @@
     nodejs
     swaybg
     wlr-randr
+    nixfmt-rfc-style
   ];
 
   # Unfree packages

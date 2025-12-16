@@ -12,6 +12,10 @@
     ./modules/waybar.nix
   ];
 
+  home.packages = with pkgs; [
+    docker
+  ];
+
   programs.starship = {
     enable = true;
     enableBashIntegration = true;
@@ -44,6 +48,9 @@
     enable = true;
     userName = "Andreas";
     userEmail = "andreas@kruck.cc";
+    extraConfig = {
+      credential.helper = "store";
+    };
   };
 
   programs.alacritty = {
@@ -56,6 +63,12 @@
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
+    plugins = with pkgs.vimPlugins; [
+      nvim-treesitter
+    ];
+    extraPackages = with pkgs; [
+      tree-sitter
+    ];
   };
 
   programs.bash = {
@@ -69,19 +82,6 @@
 
   programs.tmux.enable = true;
 
-  # Notifications
-  services.mako = {
-    enable = true;
-    settings = {
-      default-timeout = 5000;
-      border-color = "#89b4fa";
-      font = "JetBrainsMono Nerd Font 12";
-      background-color = "#1e1e2e";
-      text-color = "#cdd6f4";
-    };
-  };
-
-  # Launcher
   programs.wofi = {
     enable = true;
     settings = {
@@ -264,6 +264,19 @@
       }
     '';
   };
+
+  # Notifications
+  services.mako = {
+    enable = true;
+    settings = {
+      default-timeout = 5000;
+      border-color = "#89b4fa";
+      font = "JetBrainsMono Nerd Font 12";
+      background-color = "#1e1e2e";
+      text-color = "#cdd6f4";
+    };
+  };
+
 
   programs.home-manager.enable = true;
 }
