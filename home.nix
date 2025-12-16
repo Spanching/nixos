@@ -10,11 +10,12 @@
   imports = [
     ./nixModules/river.nix
     ./nixModules/waybar.nix
+    ./nixModules/wofi.nix
   ];
 
-  home.packages = with pkgs; [
-    docker
-  ];
+  # home.packages = with pkgs; [
+  #   docker
+  # ];
 
   programs.starship = {
     enable = true;
@@ -43,7 +44,6 @@
     '';
   };
 
-  # Programs managed by home-manager
   programs.git = {
     enable = true;
     userName = "Andreas";
