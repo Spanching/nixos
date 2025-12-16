@@ -8,8 +8,8 @@
   home.stateVersion = "25.05";
 
   imports = [
-    ./modules/river.nix
-    ./modules/waybar.nix
+    ./nixModules/river.nix
+    ./nixModules/waybar.nix
   ];
 
   home.packages = with pkgs; [

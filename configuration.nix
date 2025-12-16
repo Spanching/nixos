@@ -93,6 +93,7 @@
     swaybg
     wlr-randr
     nixfmt-rfc-style
+    lazygit
   ];
 
   # Unfree packages
