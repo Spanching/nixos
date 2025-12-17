@@ -7,7 +7,7 @@
     settings = {
       map = {
         normal = {
-          "Super+Shift Return" = "spawn alacritty";
+          "Super+Shift Return" = "spawn kitty";
           "Super D" = "spawn 'wofi --show run'";
           "Super+Alt Return" = "spawn foot";
           "Super Q" = "close";

@@ -12,11 +12,13 @@
         margin-right = 6;
         margin-bottom = 0;
 
+        height = 30;
+
         modules-left = [
           "custom/sandtimer"
-          "river/tags"
-          "river/mode"
-          "river/window"
+          # "river/tags"
+          # "river/mode"
+          # "river/window"
         ];
         modules-center = [
           "clock#1"
@@ -25,7 +27,7 @@
           "pulseaudio"
           "cpu"
           "memory"
-          "tray"
+          # "tray"
         ];
 
         "custom/sandtimer" = {
@@ -38,7 +40,7 @@
         };
 
         "clock#1" = {
-          format = "{:%a %d-%m-%y %H:%M}";
+          format = "{:%d.%m.%Y %H:%M}";
           tooltip = false;
         };
 
@@ -57,11 +59,11 @@
         };
         "memory" = {
           interval = 5;
-          format = "Mem {}%";
+          format = "  {percentage:2}%";
         };
         "cpu" = {
           interval = 5;
-          format = "CPU {usage:2}%";
+          format = "  {usage:2}%";
         };
         "disk" = {
           interval = 5;
@@ -102,11 +104,11 @@
       @define-color crust #232634;
 
       * {
-        font-size: 14px;
+        font-size: 12px;
       }
 
       window#waybar {
-        border-radius: 10px;
+        border-radius: 15px;
         background: rgba(35, 38, 54, 0.99);
         margin: 4px;
         color: @blue;
@@ -114,7 +116,8 @@
 
       #custom-sandtimer {
         color: @rosewater;
-        padding: 0 10px;
+        font-size: 16px;
+        padding: 0 15px;
       }
 
       #workspaces,
@@ -131,6 +134,7 @@
 
       #workspaces button {
         padding: 0 2px;
+        font-size: 1px;
         color: #fdf6e3;
       }
       #workspaces button.focused {

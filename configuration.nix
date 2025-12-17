@@ -7,6 +7,11 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  catppuccin = {
+    enable = true;
+    flavor = "frappe";
+  };
+
   # Bootloader and EFI
   # boot.loader.systemd-boot.enable = true;
   # boot.loader.efi.canTouchEfiVariables = true;
@@ -26,6 +31,7 @@
   # Host & Networking
   networking.hostName = "whitezaziki";
   networking.networkmanager.enable = true;
+  networking.firewall.enable = true;
 
   # Time and Locale
   time.timeZone = "Europe/Berlin";
@@ -48,6 +54,17 @@
     extraGroups = ["wheel" "networkmanager"];
   };
 
+  # Enable docker
+  virtualisation.docker = {
+    enable = true;
+
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
+
+
   # Graphics + NVIDIA
   hardware.graphics.enable = true; # GL + Vulkan
 
@@ -62,6 +79,7 @@
   };
 
   hardware.bluetooth.enable = true;
+  hardware.nvidia-container-toolkit.enable = true;
 
   services.greetd.enable = true;
   services.greetd.settings = {
@@ -82,8 +100,8 @@
   environment.systemPackages = with pkgs; [
     vim neovim git
     firefox
-    alacritty foot
     tmux htop ripgrep fd
+    ctop
     wofi mako wl-clipboard
     river wlroots xwayland
     gcc wget
@@ -94,6 +112,10 @@
     wlr-randr
     nixfmt-rfc-style
     lazygit
+    docker
+    docker-compose
+    jellyfin-media-player
+    foot kitty
   ];
 
   # Unfree packages

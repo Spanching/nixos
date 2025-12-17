@@ -11,11 +11,34 @@
     ./nixModules/river.nix
     ./nixModules/waybar.nix
     ./nixModules/wofi.nix
+    ./nixModules/tmux.nix
   ];
 
-  # home.packages = with pkgs; [
-  #   docker
-  # ];
+  home.packages = with pkgs; [
+    docker-compose
+    bat
+    delta
+  ];
+
+  catppuccin = {
+    flavor = "frappe";
+    bat.enable = true;
+    kitty.enable = true;
+    qutebrowser.enable = true;
+    yazi.enable = true;
+    tmux = { 
+      enable = true;
+      extraConfig = ''
+        set -g @catppuccin_window_status_style "rounded"
+
+        set -g status-right-length 100
+        set -g status-left-length 100
+        set -g status-left ""
+        set -g status-right "#{E:@catppuccin_status_application}"
+        set -ag status-right "#{E:@catppuccin_status_session}"
+      '';
+    };
+  };
 
   programs.starship = {
     enable = true;
@@ -25,24 +48,12 @@
   programs.qutebrowser = {
     enable = true;
     loadAutoconfig = false;
-    extraConfig = ''
-      import os
-      from urllib.request import urlopen
-
-      # load your autoconfig, use this, if the rest of your config is empty!
-      config.load_autoconfig()
-
-      if not os.path.exists(config.configdir / "theme.py"):
-        theme = "https://raw.githubusercontent.com/catppuccin/qutebrowser/main/setup.py"
-        with urlopen(theme) as themehtml:
-          with open(config.configdir / "theme.py", "a") as file:
-            file.writelines(themehtml.read().decode("utf-8"))
-
-      if os.path.exists(config.configdir / "theme.py"):
-        import theme
-        theme.setup(c, 'frappe', True)
-    '';
+    settings = {
+      colors.webpage.darkmode.enabled = true;
+    };
   };
+
+  programs.yazi.enable = true;
 
   programs.git = {
     enable = true;
@@ -51,11 +62,6 @@
     extraConfig = {
       credential.helper = "store";
     };
-  };
-
-  programs.alacritty = {
-    enable = true;
-    theme = "catppuccin_frappe";
   };
 
   programs.neovim = {
@@ -71,6 +77,15 @@
     ];
   };
 
+  programs.kitty = {
+    enable = true;
+    font = {
+      size = 12;
+      name = "JetBrainsMono";
+    };
+    # themeFile = "Catppuccin-Frappe";
+  };
+
   programs.bash = {
     enable = true;
     shellAliases = {
@@ -79,8 +94,6 @@
       snvim = "sudo -E -s nvim";
     };
   };
-
-  programs.tmux.enable = true;
 
   # Notifications
   services.mako = {
