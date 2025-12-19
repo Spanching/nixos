@@ -8,7 +8,8 @@
   home.stateVersion = "25.05";
 
   imports = [
-    ./nixModules/river.nix
+    # ./nixModules/river.nix
+    ./nixModules/hyprland.nix
     ./nixModules/waybar.nix
     ./nixModules/wofi.nix
     ./nixModules/tmux.nix
@@ -26,7 +27,18 @@
     kitty.enable = true;
     qutebrowser.enable = true;
     yazi.enable = true;
-    firefox.enable = true;
+    tmux = { 
+      enable = true;
+      extraConfig = ''
+        set -g @catppuccin_window_status_style "rounded"
+
+        set -g status-right-length 100
+        set -g status-left-length 100
+        set -g status-left ""
+        set -g status-right "#{E:@catppuccin_status_application}"
+        set -ag status-right "#{E:@catppuccin_status_session}"
+      '';
+    };
   };
 
   programs.starship = {
@@ -72,16 +84,13 @@
       size = 12;
       name = "JetBrainsMono";
     };
-    settings = {
-      window_margin_width = "3 6 6 6";
-      enable_audio_bell = false;
-    };
+    # themeFile = "Catppuccin-Frappe";
   };
 
   programs.bash = {
     enable = true;
     shellAliases = {
-      nrs = "sudo nixos-rebuild switch --flake /etc/nixos#whitezaziki";
+      nrs = "sudo nixos-rebuild switch";
       confedit = "sudo -E -s nvim /etc/nixos/configuration.nix";
       snvim = "sudo -E -s nvim";
     };

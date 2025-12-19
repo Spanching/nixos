@@ -18,7 +18,9 @@
 
         modules-left = [
           "custom/sandtimer"
-          "river/tags"
+          "hyprland/workspaces"
+          "hyprland/window"
+          # "river/tags"
           # "river/layout"
           # "river/mode"
           # "river/window"
