@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  catppuccin.waybar.enable = true;
+
   programs.waybar = {
     enable = true;
     settings = {
@@ -16,7 +18,8 @@
 
         modules-left = [
           "custom/sandtimer"
-          # "river/tags"
+          "river/tags"
+          # "river/layout"
           # "river/mode"
           # "river/window"
         ];
@@ -24,6 +27,7 @@
           "clock#1"
         ];
         modules-right = [
+          "bluetooth"
           "pulseaudio"
           "cpu"
           "memory"
@@ -37,6 +41,9 @@
         "sway/workspaces" = {
           disable-scroll = true;
           format = "{name}";
+        };
+        "river/tags" = {
+          num-tags = 5;
         };
 
         "clock#1" = {
@@ -76,60 +83,38 @@
       };
     };
     style = ''
-      @define-color rosewater #f2d5cf;
-      @define-color flamingo #eebebe;
-      @define-color pink #f4b8e4;
-      @define-color mauve #ca9ee6;
-      @define-color red #e78284;
-      @define-color maroon #ea999c;
-      @define-color peach #ef9f76;
-      @define-color yellow #e5c890;
-      @define-color green #a6d189;
-      @define-color teal #81c8be;
-      @define-color sky #99d1db;
-      @define-color sapphire #85c1dc;
-      @define-color blue #8caaee;
-      @define-color lavender #babbf1;
-      @define-color text #c6d0f5;
-      @define-color subtext1 #b5bfe2;
-      @define-color subtext0 #a5adce;
-      @define-color overlay2 #949cbb;
-      @define-color overlay1 #838ba7;
-      @define-color overlay0 #737994;
-      @define-color surface2 #626880;
-      @define-color surface1 #51576d;
-      @define-color surface0 #414559;
-      @define-color base #303446;
-      @define-color mantle #292c3c;
-      @define-color crust #232634;
-
       * {
         font-size: 12px;
+        min-height: 0;
       }
 
       window#waybar {
         border-radius: 15px;
         background: rgba(35, 38, 54, 0.99);
         margin: 4px;
-        color: @blue;
+        color: @text;
       }
 
       #custom-sandtimer {
-        color: @rosewater;
+        color: @blue;
         font-size: 16px;
         padding: 0 15px;
       }
 
-      #workspaces,
-      #clock.1,
-      #clock.2,
-      #clock.3,
-      #pulseaudio,
-      #memory,
-      #cpu,
-      #battery,
-      #disk,
-      #tray {
+      #tags button {
+        padding: 3px;
+        margin: 3px;
+      }
+      #tags button.focused {
+        background: @base;
+        color: @subtext0;
+      }
+      #tags button.occupied {
+        color: @subtext1;
+      }
+
+      #clock.1 {
+        color: @text;
       }
 
       #workspaces button {

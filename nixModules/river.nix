@@ -70,8 +70,24 @@
           "Super Right" = "send-layout-cmd rivertile 'main-location right'";
           "Super Down " = "send-layout-cmd rivertile 'main-location bottom'";
           "Super Left " = "send-layout-cmd rivertile 'main-location left'";
+
+          "Super F11" = "enter-mode passthrough";
+        };
+        passthrough = {
+          "Super F11" = "enter-mode normal";
         };
       };
+      map-pointer = {
+        normal = {
+          "Super BTN_RIGHT" = "resize-view";
+          "Super BTN_LEFT" = "move-view";
+          "Super BTN_MIDDLE" = "toggle-float";
+
+        };
+      };
+      declare-mode = [
+        "passthrough"
+      ];
     };
     extraConfig = ''
       #!/bin/sh
@@ -81,47 +97,28 @@
       waybar &
       mako &
 
-      # Super + Left Mouse Button to move views
-      riverctl map-pointer normal Super BTN_LEFT move-view
-
-      # Super + Right Mouse Button to resize views
-      riverctl map-pointer normal Super BTN_RIGHT resize-view
-
-      # Super + Middle Mouse Button to toggle float
-      riverctl map-pointer normal Super BTN_MIDDLE toggle-float
-
       for i in $(seq 1 9)
       do
           tags=$((1 << ($i - 1)))
 
           # Super+[1-9] to focus tag [0-8]
-          "Super $i" = "set-focused-tags $tags";
+          riverctl map normal Super $i set-focused-tags $tags
 
           # Super+Shift+[1-9] to tag focused view with tag [0-8]
-          "Super+Shift $i" = "set-view-tags $tags";
+          riverctl map normal Super+Shift $i set-view-tags $tags
 
           # Super+Control+[1-9] to toggle focus of tag [0-8]
-          "Super+Control $i" = "toggle-focused-tags $tags";
+          riverctl map normal Super+Control $i toggle-focused-tags $tags
 
           # Super+Shift+Control+[1-9] to toggle tag [0-8] of focused view
-          "Super+Shift+Control $i" = "toggle-view-tags $tags";
+          riverctl map normal Super+Shift+Control $i toggle-view-tags $tags
       done
 
       # Super+0 to focus all tags
       # Super+Shift+0 to tag focused view with all tags
-            all_tags=$(((1 << 32) - 1))
-      "Super 0" = "set-focused-tags $all_tags";
-      "Super+Shift 0" = "set-view-tags $all_tags";
-
-      # Declare a passthrough mode. This mode has only a single mapping to return to
-      # normal mode. This makes it useful for testing a nested wayland compositor
-      riverctl declare-mode passthrough
-
-      # Super+F11 to enter passthrough mode
-      "Super F11 enter-mode" = "passthrough";
-
-      # Super+F11 to return to normal mode
-      riverctl map passthrough Super F11 enter-mode normal
+      all_tags=$(((1 << 32) - 1))
+      riverctl map normal Super 0 = set-focused-tags $all_tags
+      riverctl map normal Super+Shift 0 = set-view-tags $all_tags
 
       # Various media key mapping examples for both normal and locked mode which do
       # not have a modifier
@@ -148,8 +145,8 @@
 
       # Set background and border color
       riverctl background-color 0x232634
-      riverctl border-color-focused 0xbabbf1
-      riverctl border-color-unfocused 0x414559
+      riverctl border-color-focused 0x414559
+      riverctl border-color-unfocused 0x303446
       riverctl border-width 2
 
       # Set keyboard repeat rate

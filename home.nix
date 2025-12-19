@@ -26,18 +26,7 @@
     kitty.enable = true;
     qutebrowser.enable = true;
     yazi.enable = true;
-    tmux = { 
-      enable = true;
-      extraConfig = ''
-        set -g @catppuccin_window_status_style "rounded"
-
-        set -g status-right-length 100
-        set -g status-left-length 100
-        set -g status-left ""
-        set -g status-right "#{E:@catppuccin_status_application}"
-        set -ag status-right "#{E:@catppuccin_status_session}"
-      '';
-    };
+    firefox.enable = true;
   };
 
   programs.starship = {
@@ -83,13 +72,16 @@
       size = 12;
       name = "JetBrainsMono";
     };
-    # themeFile = "Catppuccin-Frappe";
+    settings = {
+      window_margin_width = "3 6 6 6";
+      enable_audio_bell = false;
+    };
   };
 
   programs.bash = {
     enable = true;
     shellAliases = {
-      nrs = "sudo nixos-rebuild switch";
+      nrs = "sudo nixos-rebuild switch --flake /etc/nixos#whitezaziki";
       confedit = "sudo -E -s nvim /etc/nixos/configuration.nix";
       snvim = "sudo -E -s nvim";
     };
