@@ -10,6 +10,10 @@
   catppuccin = {
     enable = true;
     flavor = "frappe";
+    cursors = { 
+      enable = true;
+      accent = "lavender";
+    }
   };
 
   # Bootloader and EFI
@@ -110,12 +114,12 @@
     nodejs
     swaybg
     wlr-randr
-    nixfmt-rfc-style
     lazygit
     docker
     docker-compose
     jellyfin-media-player
     foot kitty
+    miraclecast
   ];
 
   # Unfree packages

@@ -47,23 +47,26 @@
       # Key bindings
       bind = [
         # Terminal spawning
-        "SUPER SHIFT, Return, exec, kitty"
-        "SUPER ALT, Return, exec, foot"
+        "SUPER, Return, exec, kitty"
 
         # Application launcher
         "SUPER, D, exec, wofi --show run"
 
         # Window management
-        "SUPER, Q, killactive"
-        "SUPER SHIFT, E, exit"
+        "SUPER, W, killactive"
+        "SUPER SHIFT, Q, exit"
 
-        # Focus navigation (next/previous window in stack)
-        "SUPER, J, layoutmsg, cyclenext"
-        "SUPER, K, layoutmsg, cycleprev"
+        # Focus navigation (vim keys)
+        "SUPER, H, movefocus, l"
+        "SUPER, J, movefocus, d"
+        "SUPER, K, movefocus, u"
+        "SUPER, L, movefocus, r"
 
-        # Swap windows
-        "SUPER SHIFT, J, layoutmsg, swapnext"
-        "SUPER SHIFT, K, layoutmsg, swapprev"
+        # Swap windows (master layout)
+        "SUPER SHIFT, H, swapwindow, l"
+        "SUPER SHIFT, J, swapwindow, d"
+        "SUPER SHIFT, K, swapwindow, u"
+        "SUPER SHIFT, L, swapwindow, r"
 
         # Focus monitor
         "SUPER, Period, focusmonitor, +1"
@@ -73,51 +76,36 @@
         "SUPER SHIFT, Period, movewindow, mon:+1"
         "SUPER SHIFT, Comma, movewindow, mon:-1"
 
-        # Zoom (bump to top of stack)
-        "SUPER, Return, layoutmsg, swapwithmaster master"
-
         # Master ratio adjustment
-        "SUPER, H, layoutmsg, mfact, -0.05"
-        "SUPER, L, layoutmsg, mfact, +0.05"
+        "SUPER CTRL, H, layoutmsg, mfact, -0.05"
+        "SUPER CTRL, L, layoutmsg, mfact, +0.05"
 
         # Master count adjustment
-        "SUPER SHIFT, H, layoutmsg, addmaster, 1"
-        "SUPER SHIFT, L, layoutmsg, addmaster, -1"
-
-        # Move windows
-        "SUPER ALT, H, movewindow, l"
-        "SUPER ALT, J, movewindow, d"
-        "SUPER ALT, K, movewindow, u"
-        "SUPER ALT, L, movewindow, r"
-
-        # Snap to edges
-        "SUPER ALT CTRL, H, movewindow, mon:-1"
-        "SUPER ALT CTRL, J, movewindow, mon:+1"
-        "SUPER ALT CTRL, K, movewindow, mon:+1"
-        "SUPER ALT CTRL, L, movewindow, mon:+1"
-
-        # Resize windows
-        "SUPER ALT SHIFT, H, resizeactive, -100 0"
-        "SUPER ALT SHIFT, J, resizeactive, 0 100"
-        "SUPER ALT SHIFT, K, resizeactive, 0 -100"
-        "SUPER ALT SHIFT, L, resizeactive, 100 0"
+        "SUPER ALT, H, layoutmsg, addmaster, -1"
+        "SUPER ALT, L, layoutmsg, addmaster, 1"
 
         # Toggle float
-        "SUPER, Space, togglefloating"
+        "SUPER, V, togglefloating"
 
         # Toggle fullscreen
         "SUPER, F, fullscreen, 0"
 
-        # Change layout orientation (master location)
-        "SUPER, Up, layoutmsg, orientationtop"
-        "SUPER, Right, layoutmsg, orientationright"
-        "SUPER, Down, layoutmsg, orientationbottom"
-        "SUPER, Left, layoutmsg, orientationleft"
+        # Toggle maximize (opaque fullscreen)
+        "SUPER SHIFT, F, fullscreen, 1"
 
-        # Passthrough mode (like River)
+        # Resize windows (hold and drag alternative)
+        "SUPER ALT SHIFT, H, resizeactive, -50 0"
+        "SUPER ALT SHIFT, J, resizeactive, 0 50"
+        "SUPER ALT SHIFT, K, resizeactive, 0 -50"
+        "SUPER ALT SHIFT, L, resizeactive, 50 0"
+
+        # Pin window (sticky)
+        "SUPER SHIFT, P, pin"
+
+        # Passthrough mode
         "SUPER, F11, submap, passthrough"
 
-        # Tag/Workspace switching (1-9)
+        # Workspace/Tag switching (1-9)
         "SUPER, 1, workspace, 1"
         "SUPER, 2, workspace, 2"
         "SUPER, 3, workspace, 3"
@@ -160,11 +148,10 @@
       ];
 
       # Passthrough mode submaps
-      submap = "passthrough" {
-        bind = [
-          "SUPER, F11, submap, reset"
-        ];
-      };
+      submap = "passthrough";
+      bind = [
+        "SUPER, F11, submap, reset"
+      ];
       submap = "reset";
 
       # Window rules
