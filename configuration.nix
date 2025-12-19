@@ -10,6 +10,10 @@
   catppuccin = {
     enable = true;
     flavor = "frappe";
+    cursors = { 
+      enable = true;
+      accent = "lavender";
+    }
   };
 
   # Bootloader and EFI
