@@ -73,7 +73,6 @@
     docker-compose
     jellyfin-media-player
     foot kitty
-    miraclecast
   ];
 
   # Security
