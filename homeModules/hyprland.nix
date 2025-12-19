@@ -5,8 +5,11 @@
     enable = true;
     package = pkgs.hyprland;
     settings = {
-      # Monitor setup
-      monitor = "HDMI-A-3,preferred,560,-900,1";
+
+      monitor = [
+        "HDMI-A-2,2560x1080@60,0x0,1"
+        "HDMI-A-3,1440x900@60,560x-900,1"
+      ];
 
       # General settings
       general = {
@@ -44,6 +47,11 @@
         "mako"
       ];
 
+      animation = [
+        "windows, 1, 6, default, slide"
+        "workspaces, 1, 6, default, slide"
+      ];
+
       # Key bindings
       bind = [
         # Terminal spawning
@@ -51,6 +59,8 @@
 
         # Application launcher
         "SUPER, D, exec, wofi --show run"
+        "SUPER, Q, exec, qutebrowser"
+        "SUPER, Y, exec, firefox"
 
         # Window management
         "SUPER, W, killactive"
@@ -127,6 +137,11 @@
         "SUPER SHIFT, 8, movetoworkspace, 8"
         "SUPER SHIFT, 9, movetoworkspace, 9"
 
+        # Mouse Bindings
+        "SUPER, mouse:272, movewindow"
+        "SUPER, mouse:273, resizeactive"
+        "SUPER, mouse:274, togglefloating"
+
         # Media keys
         ", XF86AudioRaiseVolume, exec, pamixer -i 5"
         ", XF86AudioLowerVolume, exec, pamixer -d 5"
@@ -140,29 +155,15 @@
         ", XF86Eject, exec, eject -T"
       ];
 
-      # Mouse bindings
-      bindm = [
-        "SUPER, mouse:272, movewindow"
-        "SUPER, mouse:273, resizewindow"
-        "SUPER, mouse:274, togglefloating"
-      ];
-
-      # Passthrough mode submaps
-      submap = "passthrough";
-      bind = [
-        "SUPER, F11, submap, reset"
-      ];
-      submap = "reset";
-
       # Window rules
       windowrule = [
-        "float, ^(float.*)$"
+        "float, class:^(float.*)$"
         "float, title:^(foo)$"
       ];
 
       # Master layout settings
       master = {
-        new_is_master = true;
+        new_status = "master";
         new_on_top = false;
         orientation = "left";
         mfact = 0.5;

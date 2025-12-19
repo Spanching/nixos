@@ -3,22 +3,13 @@
 {
   imports = [
     ./hardware-configuration.nix
+
+    ./../../nixModules
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  catppuccin = {
-    enable = true;
-    flavor = "frappe";
-    cursors = { 
-      enable = true;
-      accent = "lavender";
-    }
-  };
-
   # Bootloader and EFI
-  # boot.loader.systemd-boot.enable = true;
-  # boot.loader.efi.canTouchEfiVariables = true;
   boot.loader = {
     efi = {
       canTouchEfiVariables = true;
@@ -58,47 +49,9 @@
     extraGroups = ["wheel" "networkmanager"];
   };
 
-  # Enable docker
-  virtualisation.docker = {
-    enable = true;
-
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
-    };
-  };
-
-
-  # Graphics + NVIDIA
-  hardware.graphics.enable = true; # GL + Vulkan
-
-  services.xserver.enable = true; # Needed for Xwayland & fallback
-  services.xserver.videoDrivers = [ "nvidia" ];
-
-  hardware.nvidia = {
-    modesetting.enable = true;
-    open = true; # Use open kernel module if supported
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
+  services.xserver.enable = true;
 
   hardware.bluetooth.enable = true;
-  hardware.nvidia-container-toolkit.enable = true;
-
-  services.greetd.enable = true;
-  services.greetd.settings = {
-    default_session = {
-      command = "river";
-      user = "andreas";
-    };
-  };
-  # PipeWire (audio + video)
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
 
   # Packages
   environment.systemPackages = with pkgs; [
@@ -107,7 +60,8 @@
     tmux htop ripgrep fd
     ctop
     wofi mako wl-clipboard
-    river wlroots xwayland
+    wlroots xwayland
+    wlogout
     gcc wget
     nerd-fonts.jetbrains-mono
     pavucontrol
@@ -120,14 +74,6 @@
     jellyfin-media-player
     foot kitty
     miraclecast
-  ];
-
-  # Unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  fonts.enableDefaultPackages = true;
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
   ];
 
   # Security

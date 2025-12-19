@@ -91,7 +91,7 @@
       }
 
       window#waybar {
-        border-radius: 15px;
+        border-radius: 10px;
         background: rgba(35, 38, 54, 0.99);
         margin: 4px;
         color: @text;

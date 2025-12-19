@@ -8,11 +8,10 @@
   home.stateVersion = "25.05";
 
   imports = [
-    # ./nixModules/river.nix
-    ./nixModules/hyprland.nix
-    ./nixModules/waybar.nix
-    ./nixModules/wofi.nix
-    ./nixModules/tmux.nix
+    ./../../homeModules/hyprland.nix
+    ./../../homeModules/waybar.nix
+    ./../../homeModules/wofi.nix
+    ./../../homeModules/tmux.nix
   ];
 
   home.packages = with pkgs; [
@@ -38,6 +37,10 @@
         set -g status-right "#{E:@catppuccin_status_application}"
         set -ag status-right "#{E:@catppuccin_status_session}"
       '';
+    };
+    cursors = { 
+      enable = true;
+      accent = "lavender";
     };
   };
 
@@ -84,13 +87,16 @@
       size = 12;
       name = "JetBrainsMono";
     };
-    # themeFile = "Catppuccin-Frappe";
+    settings = {
+      window_margin_width = "3 6 6 6";
+    };
   };
 
   programs.bash = {
     enable = true;
     shellAliases = {
       nrs = "sudo nixos-rebuild switch";
+      nnix = "nvim /etc/nixos";
       confedit = "sudo -E -s nvim /etc/nixos/configuration.nix";
       snvim = "sudo -E -s nvim";
     };
