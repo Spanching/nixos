@@ -14,7 +14,6 @@
       # External Tools
       ripgrep
       fd
-      lazygit
       nixfmt-classic
       tree-sitter
       gcc

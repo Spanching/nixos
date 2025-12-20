@@ -13,8 +13,6 @@
 
   home.packages = with pkgs; [
     docker-compose
-    bat
-    delta
     firefox
     swaybg
     vscode-langservers-extracted
@@ -23,21 +21,16 @@
     claude-code
   ];
 
+  programs.bat = {
+    enable = true;
+  };
+
   programs.starship = {
     enable = true;
     enableBashIntegration = true;
   };
 
   programs.yazi.enable = true;
-
-  programs.git = {
-    enable = true;
-    settings = {
-      user.name = "Andreas";
-      user.email = "andreas@kruck.cc";
-      credential.helper = "store";
-    };
-  };
 
   programs.kitty = {
     enable = true;

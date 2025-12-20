@@ -9,5 +9,6 @@
     ./neovim.nix
     ./catppuccin.nix
     ./starship.nix
+    ./git.nix
   ];
 }
