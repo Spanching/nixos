@@ -109,6 +109,7 @@
 
         # Set Master to around 16:9
         "SUPER, A, layoutmsg, mfact exact 0.76"
+        "SUPER, S, layoutmsg, mfact exact 0.5"
 
         # Toggle float
         "SUPER, V, togglefloating"
