@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./catppuccin.nix
     ./nvidia.nix
     ./pipewire.nix
     ./font.nix

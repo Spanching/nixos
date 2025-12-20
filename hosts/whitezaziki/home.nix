@@ -8,11 +8,7 @@
   home.stateVersion = "25.11";
 
   imports = [
-    ./../../homeModules/hyprland.nix
-    ./../../homeModules/waybar.nix
-    ./../../homeModules/wofi.nix
-    ./../../homeModules/tmux.nix
-    ./../../homeModules/neovim.nix
+    ./../../homeModules
   ];
 
   home.packages = with pkgs; [
@@ -27,46 +23,9 @@
     claude-code
   ];
 
-  catppuccin = {
-    flavor = "frappe";
-    fzf.enable = true;
-    bat.enable = true;
-    kitty.enable = true;
-    qutebrowser.enable = true;
-    yazi.enable = true;
-    tmux = {
-      enable = true;
-      extraConfig = ''
-        set -g @catppuccin_window_status_style "rounded"
-
-        set -g status-right-length 100
-        set -g status-left-length 100
-        set -g status-left ""
-        set -g status-right "#{E:@catppuccin_status_application}"
-        set -ag status-right "#{E:@catppuccin_status_session}"
-      '';
-    };
-    cursors = {
-      enable = true;
-      accent = "lavender";
-    };
-  };
-
   programs.starship = {
     enable = true;
     enableBashIntegration = true;
-  };
-
-  programs.qutebrowser = {
-    enable = true;
-    loadAutoconfig = false;
-    settings = {
-      colors.webpage.darkmode.enabled = true;
-      tabs.max_width = 250;
-    };
-    extraConfig = ''
-      c.tabs.padding = {'top': 5, 'bottom': 5, 'left': 5, 'right': 5}
-    '';
   };
 
   programs.yazi.enable = true;
