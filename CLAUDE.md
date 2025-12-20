@@ -66,16 +66,91 @@ snvim       # sudo -E -s nvim
   - `font.nix` - System fonts
   - `docker.nix` - Docker setup
   - `greetd.nix` - Login manager (auto-starts Hyprland for user andreas)
-- `homeModules/` - User-level home-manager modules (imported directly in home.nix)
+- `homeModules/` - User-level home-manager modules (imported via `homeModules/default.nix`)
   - `hyprland.nix` - Hyprland window manager configuration
   - `waybar.nix` - Status bar configuration
   - `wofi.nix` - Application launcher
   - `tmux.nix` - Terminal multiplexer
+  - `neovim.nix` - Neovim editor configuration
+  - `catppuccin.nix` - User-level Catppuccin theming
 
 ### Flake Inputs
 - `nixpkgs` - NixOS 25.05 stable channel
 - `home-manager` - User environment management (release-25.05)
 - `catppuccin` - Catppuccin theme integration (release-25.05)
+
+### Module Structure Pattern
+
+This configuration follows a strict modular structure for organization and multi-host flexibility:
+
+#### Home Manager Modules (`homeModules/`)
+
+All home-manager modules are:
+1. **Imported centrally** via `homeModules/default.nix` - This file contains the imports list for all home modules
+2. **Program-specific** - Each module is in its own file (e.g., `neovim.nix`, `hyprland.nix`, `tmux.nix`)
+3. **Self-contained** - Each module contains all configuration for that specific program
+
+**Future multi-host support**: When adding new hosts that need fewer features, modules will use enable boolean configurations to allow selective activation per-host. For now, all modules are enabled by default for the single host.
+
+Example structure:
+```nix
+# homeModules/default.nix
+{ config, pkgs, ... }:
+{
+  imports = [
+    ./hyprland.nix
+    ./waybar.nix
+    ./neovim.nix
+    # ... all home modules
+  ];
+}
+```
+
+#### System Modules (`nixModules/`)
+
+System-level modules follow the same pattern:
+1. **Imported centrally** via `nixModules/default.nix` - This file contains the imports list for all system modules
+2. **Purpose-specific** - Each module handles one system aspect (e.g., `nvidia.nix`, `docker.nix`, `pipewire.nix`)
+3. **Service/driver focused** - For system-wide services, drivers, and settings
+
+**Future multi-host support**: Similar to home modules, enable booleans will be added when multiple hosts need different system configurations.
+
+Example structure:
+```nix
+# nixModules/default.nix
+{ config, pkgs, ... }:
+{
+  imports = [
+    ./nvidia.nix
+    ./pipewire.nix
+    ./docker.nix
+    # ... all system modules
+  ];
+}
+```
+
+#### Adding New Packages - IMPORTANT
+
+**When adding new packages or applications, ALWAYS follow this pattern:**
+
+1. **Determine if it's a system or home module**:
+   - System module: Services, drivers, system-wide settings → `nixModules/`
+   - Home module: User applications, dotfiles, program configs → `homeModules/`
+
+2. **Create a dedicated module file**:
+   - Create `homeModules/<program>.nix` or `nixModules/<service>.nix`
+   - Configure the program/service completely within that file
+
+3. **Add to the appropriate default.nix**:
+   - Add import to `homeModules/default.nix` or `nixModules/default.nix`
+
+4. **Never add packages directly** to `configuration.nix` or `home.nix` unless they are trivial one-liner packages without configuration
+
+This pattern ensures:
+- Clean separation of concerns
+- Easy per-host customization in the future
+- Maintainable, modular configuration
+- Clear organization
 
 ### Key Design Patterns
 
@@ -83,7 +158,7 @@ snvim       # sudo -E -s nvim
 
 2. **Multi-Host Ready**: The structure supports multiple hosts via the `hosts/` directory. To add a new host, create a new directory under `hosts/` with its own `configuration.nix` and `home.nix`, then add it to `flake.nix` outputs.
 
-3. **Catppuccin Theming**: The Frappe flavor is configured both at system level (nixModules/catppuccin.nix) and user level (home.nix with specific app theming like bat, kitty, tmux, cursors).
+3. **Catppuccin Theming**: The Frappe flavor is configured at user level (homeModules/catppuccin.nix with specific app theming like bat, kitty, tmux, cursors).
 
 4. **Hyprland Setup**: Uses greetd as login manager which auto-starts Hyprland for the user. The Hyprland config uses master layout with dual monitors (2560x1080 primary + 1440x900 secondary).
 
@@ -117,6 +192,8 @@ The system uses Hyprland with vim-style navigation and master layout:
 
 ## Adding New Modules
 
+See the **Module Structure Pattern** section above for detailed guidelines. Quick reference:
+
 **System Module** (for services, drivers, system-wide settings):
 1. Create `.nix` file in `nixModules/`
 2. Add import to `nixModules/default.nix`
@@ -124,5 +201,7 @@ The system uses Hyprland with vim-style navigation and master layout:
 
 **Home Module** (for user applications):
 1. Create `.nix` file in `homeModules/`
-2. Add import to relevant `hosts/<hostname>/home.nix`
-3. Configure per-user as needed
+2. Add import to `homeModules/default.nix`
+3. The module will be automatically imported for all users
+
+**IMPORTANT**: Always follow the modular pattern - do NOT add packages directly to `configuration.nix` or `home.nix` unless they are trivial one-liners without configuration. Each program/service should have its own dedicated module file.

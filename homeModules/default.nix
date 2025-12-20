@@ -8,5 +8,6 @@
     ./tmux.nix
     ./neovim.nix
     ./catppuccin.nix
+    ./starship.nix
   ];
 }
