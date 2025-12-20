@@ -5,16 +5,20 @@
     enable = true;
     package = pkgs.hyprland;
     settings = {
-
       monitor = [
         "HDMI-A-2,2560x1080@60,0x0,1"
         "HDMI-A-3,1440x900@60,560x-900,1"
       ];
 
+      dwindle = {
+        # force_split = 2;
+        preserve_split = true;
+      };
+
       # General settings
       general = {
         gaps_in = 3;
-        gaps_out = 3;
+        gaps_out = 6;
         border_size = 2;
         "col.active_border" = "0xffbabbf1";
         "col.inactive_border" = "0xff414559";
@@ -38,6 +42,7 @@
         repeat_rate = 50;
         repeat_delay = 300;
         numlock_by_default = false;
+        kb_options = "caps:escape";
       };
 
       # Startup applications
@@ -87,12 +92,23 @@
         "SUPER SHIFT, Comma, movewindow, mon:-1"
 
         # Master ratio adjustment
-        "SUPER CTRL, H, layoutmsg, mfact, -0.05"
-        "SUPER CTRL, L, layoutmsg, mfact, +0.05"
+        "SUPER CTRL, H, layoutmsg, mfact -0.05"
+        "SUPER CTRL, L, layoutmsg, mfact +0.05"
 
-        # Master count adjustment
-        "SUPER ALT, H, layoutmsg, addmaster, -1"
-        "SUPER ALT, L, layoutmsg, addmaster, 1"
+        # Master count adjustment not working right now
+        # "SUPER ALT, H, layoutmsg, addmaster -1"
+        # "SUPER ALT, L, layoutmsg, addmaster 1"
+
+        # Switch between master and dwindle
+        "SUPER ALT, M, exec, hyprctl keyword general:layout master"
+        "SUPER ALT, D, exec, hyprctl keyword general:layout dwindle"
+
+        # Focus and switch with master
+        "SUPER, M, layoutmsg, focusmaster"
+        "SUPER SHIFT, M, layoutmsg, swapwithmaster"
+
+        # Set Master to around 16:9
+        "SUPER, A, layoutmsg, mfact exact 0.76"
 
         # Toggle float
         "SUPER, V, togglefloating"
@@ -108,6 +124,11 @@
         "SUPER ALT SHIFT, J, resizeactive, 0 50"
         "SUPER ALT SHIFT, K, resizeactive, 0 -50"
         "SUPER ALT SHIFT, L, resizeactive, 50 0"
+
+        "SUPER, left, resizeactive, -50 0"
+        "SUPER, right, resizeactive, 50 0"
+        "SUPER, up, resizeactive, 0 -50"
+        "SUPER, down, resizeactive, 0 50"
 
         # Pin window (sticky)
         "SUPER SHIFT, P, pin"

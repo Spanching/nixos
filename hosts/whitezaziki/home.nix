@@ -12,21 +12,29 @@
     ./../../homeModules/waybar.nix
     ./../../homeModules/wofi.nix
     ./../../homeModules/tmux.nix
+    ./../../homeModules/neovim.nix
   ];
 
   home.packages = with pkgs; [
     docker-compose
     bat
     delta
+    firefox
+    swaybg
+    vscode-langservers-extracted
+    jellyfin-media-player
+    jetbrains.idea-ultimate
+    claude-code
   ];
 
   catppuccin = {
     flavor = "frappe";
+    fzf.enable = true;
     bat.enable = true;
     kitty.enable = true;
     qutebrowser.enable = true;
     yazi.enable = true;
-    tmux = { 
+    tmux = {
       enable = true;
       extraConfig = ''
         set -g @catppuccin_window_status_style "rounded"
@@ -38,7 +46,7 @@
         set -ag status-right "#{E:@catppuccin_status_session}"
       '';
     };
-    cursors = { 
+    cursors = {
       enable = true;
       accent = "lavender";
     };
@@ -54,7 +62,11 @@
     loadAutoconfig = false;
     settings = {
       colors.webpage.darkmode.enabled = true;
+      tabs.max_width = 250;
     };
+    extraConfig = ''
+      c.tabs.padding = {'top': 5, 'bottom': 5, 'left': 5, 'right': 5}
+    '';
   };
 
   programs.yazi.enable = true;
@@ -66,19 +78,6 @@
     extraConfig = {
       credential.helper = "store";
     };
-  };
-
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-    plugins = with pkgs.vimPlugins; [
-      nvim-treesitter
-    ];
-    extraPackages = with pkgs; [
-      tree-sitter
-    ];
   };
 
   programs.kitty = {
@@ -100,6 +99,11 @@
       confedit = "sudo -E -s nvim /etc/nixos/configuration.nix";
       snvim = "sudo -E -s nvim";
     };
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableBashIntegration = true;
   };
 
   # Notifications

@@ -55,24 +55,12 @@
 
   # Packages
   environment.systemPackages = with pkgs; [
-    vim neovim git
-    firefox
-    tmux htop ripgrep fd
-    ctop
-    wofi mako wl-clipboard
+    git tmux htop
+    ctop wofi mako wl-clipboard
     wlroots xwayland
-    wlogout
-    gcc wget
-    nerd-fonts.jetbrains-mono
-    pavucontrol
-    nodejs
-    swaybg
     wlr-randr
-    lazygit
-    docker
-    docker-compose
-    jellyfin-media-player
-    foot kitty
+    wget pavucontrol
+    docker kitty
   ];
 
   # Security
