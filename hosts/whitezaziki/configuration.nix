@@ -62,12 +62,15 @@
     wget pavucontrol
     docker kitty
   ];
+  
+  # Required for xdg-desktop-portal with home-manager
+  environment.pathsToLink = [ "/share/applications" "/share/xdg-desktop-portal" ];
 
   # Security
   security.sudo.enable = true;
   security.sudo.wheelNeedsPassword = true;
 
   # System state
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 }
 

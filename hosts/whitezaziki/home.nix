@@ -5,7 +5,7 @@
   home.homeDirectory = "/home/andreas";
 
   # Dotfile state version
-  home.stateVersion = "25.05";
+  home.stateVersion = "25.11";
 
   imports = [
     ./../../homeModules/hyprland.nix
@@ -22,7 +22,7 @@
     firefox
     swaybg
     vscode-langservers-extracted
-    jellyfin-media-player
+    # jellyfin-media-player depends on vulerable version of qtbrowser
     jetbrains.idea-ultimate
     claude-code
   ];
@@ -73,9 +73,9 @@
 
   programs.git = {
     enable = true;
-    userName = "Andreas";
-    userEmail = "andreas@kruck.cc";
-    extraConfig = {
+    settings = {
+      user.name = "Andreas";
+      user.email = "andreas@kruck.cc";
       credential.helper = "store";
     };
   };
