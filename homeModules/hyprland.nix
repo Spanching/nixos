@@ -159,6 +159,17 @@
         "SUPER SHIFT, 8, movetoworkspace, 8"
         "SUPER SHIFT, 9, movetoworkspace, 9"
 
+        # Move window to workspace without going with it
+        "SUPER CTRL ALT, 1, movetoworkspacesilent, 1"
+        "SUPER CTRL ALT, 2, movetoworkspacesilent, 2"
+        "SUPER CTRL ALT, 3, movetoworkspacesilent, 3"
+        "SUPER CTRL ALT, 4, movetoworkspacesilent, 4"
+        "SUPER CTRL ALT, 5, movetoworkspacesilent, 5"
+        "SUPER CTRL ALT, 6, movetoworkspacesilent, 6"
+        "SUPER CTRL ALT, 7, movetoworkspacesilent, 7"
+        "SUPER CTRL ALT, 8, movetoworkspacesilent, 8"
+        "SUPER CTRL ALT, 9, movetoworkspacesilent, 9"
+
         # Mouse Bindings
         "SUPER, mouse:272, movewindow"
         "SUPER, mouse:273, resizeactive"

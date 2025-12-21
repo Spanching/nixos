@@ -19,6 +19,7 @@
     # jellyfin-media-player depends on vulerable version of qtbrowser
     jetbrains.idea-ultimate
     claude-code
+    spotify
   ];
 
   programs.bat = {
@@ -47,6 +48,7 @@
     enable = true;
     shellAliases = {
       nrs = "sudo nixos-rebuild switch";
+      ns = "nix-shell -p";
       nnix = "nvim /etc/nixos";
       confedit = "sudo -E -s nvim /etc/nixos/configuration.nix";
       snvim = "sudo -E -s nvim";

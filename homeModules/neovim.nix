@@ -20,6 +20,9 @@
       nodejs
       lazygit
       python3
+      luarocks
+      lua
+      gnumake
     ];
   };
 }
