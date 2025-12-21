@@ -10,5 +10,6 @@
     ./catppuccin.nix
     ./starship.nix
     ./git.nix
+    ./qutebrowser.nix
   ];
 }

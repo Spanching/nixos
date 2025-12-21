@@ -8,6 +8,7 @@
     delta.enable = true;
     flavor = "frappe";
     cursors = {
+      enable = true;
       accent = "lavender";
     };
   };

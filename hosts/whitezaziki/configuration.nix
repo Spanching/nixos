@@ -49,8 +49,12 @@
     extraGroups = ["wheel" "networkmanager"];
   };
 
-  services.xserver.enable = true;
+  catppuccin = {
+    enable = true;
+    flavor = "frappe";
+  };
 
+  services.xserver.enable = true;
   hardware.bluetooth.enable = true;
 
   # Packages
