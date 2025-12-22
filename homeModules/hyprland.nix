@@ -1,10 +1,11 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   wayland.windowManager.hyprland = {
     enable = true;
     package = pkgs.hyprland;
     settings = {
+      "$mod" = "SUPER";
       monitor = [
         "HDMI-A-2,2560x1080@60,0x0,1"
         "HDMI-A-3,1440x900@60,560x-900,1"
@@ -15,7 +16,6 @@
         preserve_split = true;
       };
 
-      # General settings
       general = {
         gaps_in = 3;
         gaps_out = 6;
@@ -25,7 +25,6 @@
         layout = "master";
       };
 
-      # Decoration settings (rounded corners!)
       decoration = {
         rounding = 10;
         blur = {
@@ -57,136 +56,130 @@
         "workspaces, 1, 6, default, slide"
       ];
 
+      workspace = [
+        "1,monitor:HDMI-A-2"
+        "2,monitor:HDMI-A-2"
+        "3,monitor:HDMI-A-2"
+        "4,monitor:HDMI-A-2"
+        "5,monitor:HDMI-A-3"
+        "6,monitor:HDMI-A-3"
+        "7,monitor:HDMI-A-3"
+        "8,monitor:HDMI-A-3"
+        "9,monitor:HDMI-A-3"
+      ];
+
+      binds = {
+        drag_threshold = 10;
+      };
+
       # Key bindings
       bind = [
         # Terminal spawning
-        "SUPER, Return, exec, kitty"
+        "$mod, Return, exec, kitty"
 
         # Application launcher
-        "SUPER, D, exec, wofi --show run"
-        "SUPER, Q, exec, qutebrowser"
-        "SUPER, Y, exec, firefox"
+        "$mod, D, exec, wofi --show run"
+        "$mod, Q, exec, qutebrowser"
+        "$mod, Y, exec, firefox"
 
         # Window management
-        "SUPER, W, killactive"
-        "SUPER SHIFT, Q, exit"
+        "$mod, W, killactive"
+        "$mod SHIFT, Q, exit"
 
         # Focus navigation (vim keys)
-        "SUPER, H, movefocus, l"
-        "SUPER, J, movefocus, d"
-        "SUPER, K, movefocus, u"
-        "SUPER, L, movefocus, r"
+        "$mod, H, movefocus, l"
+        "$mod, J, movefocus, d"
+        "$mod, K, movefocus, u"
+        "$mod, L, movefocus, r"
 
         # Swap windows (master layout)
-        "SUPER SHIFT, H, swapwindow, l"
-        "SUPER SHIFT, J, swapwindow, d"
-        "SUPER SHIFT, K, swapwindow, u"
-        "SUPER SHIFT, L, swapwindow, r"
+        "$mod SHIFT, H, swapwindow, l"
+        "$mod SHIFT, J, swapwindow, d"
+        "$mod SHIFT, K, swapwindow, u"
+        "$mod SHIFT, L, swapwindow, r"
 
         # Focus monitor
-        "SUPER, Period, focusmonitor, +1"
-        "SUPER, Comma, focusmonitor, -1"
+        "$mod, Period, focusmonitor, +1"
+        "$mod, Comma, focusmonitor, -1"
 
         # Move window to monitor
-        "SUPER SHIFT, Period, movewindow, mon:+1"
-        "SUPER SHIFT, Comma, movewindow, mon:-1"
+        "$mod SHIFT, Period, movewindow, mon:+1"
+        "$mod SHIFT, Comma, movewindow, mon:-1"
 
         # Master ratio adjustment
-        "SUPER CTRL, H, layoutmsg, mfact -0.05"
-        "SUPER CTRL, L, layoutmsg, mfact +0.05"
+        "$mod CTRL, H, layoutmsg, mfact -0.05"
+        "$mod CTRL, L, layoutmsg, mfact +0.05"
 
         # Master count adjustment not working right now
-        # "SUPER ALT, H, layoutmsg, addmaster -1"
-        # "SUPER ALT, L, layoutmsg, addmaster 1"
+        # "$mod ALT, H, layoutmsg, addmaster -1"
+        # "$mod ALT, L, layoutmsg, addmaster 1"
 
         # Switch between master and dwindle
-        "SUPER ALT, M, exec, hyprctl keyword general:layout master"
-        "SUPER ALT, D, exec, hyprctl keyword general:layout dwindle"
+        "$mod ALT, M, exec, hyprctl keyword general:layout master"
+        "$mod ALT, D, exec, hyprctl keyword general:layout dwindle"
 
         # Focus and switch with master
-        "SUPER, M, layoutmsg, focusmaster"
-        "SUPER SHIFT, M, layoutmsg, swapwithmaster"
+        "$mod, M, layoutmsg, focusmaster"
+        "$mod SHIFT, M, layoutmsg, swapwithmaster"
 
         # Set Master to around 16:9
-        "SUPER, A, layoutmsg, mfact exact 0.76"
-        "SUPER, S, layoutmsg, mfact exact 0.5"
+        "$mod, A, layoutmsg, mfact exact 0.76"
+        "$mod, S, layoutmsg, mfact exact 0.5"
 
         # Toggle float
-        "SUPER, V, togglefloating"
+        "$mod, V, togglefloating"
 
         # Toggle fullscreen
-        "SUPER, F, fullscreen, 0"
+        "$mod, F, fullscreen, 0"
 
         # Toggle maximize (opaque fullscreen)
-        "SUPER SHIFT, F, fullscreen, 1"
+        "$mod SHIFT, F, fullscreen, 1"
 
         # Resize windows (hold and drag alternative)
-        "SUPER ALT SHIFT, H, resizeactive, -50 0"
-        "SUPER ALT SHIFT, J, resizeactive, 0 50"
-        "SUPER ALT SHIFT, K, resizeactive, 0 -50"
-        "SUPER ALT SHIFT, L, resizeactive, 50 0"
+        "$mod ALT SHIFT, H, resizeactive, -50 0"
+        "$mod ALT SHIFT, J, resizeactive, 0 50"
+        "$mod ALT SHIFT, K, resizeactive, 0 -50"
+        "$mod ALT SHIFT, L, resizeactive, 50 0"
 
-        "SUPER, left, resizeactive, -50 0"
-        "SUPER, right, resizeactive, 50 0"
-        "SUPER, up, resizeactive, 0 -50"
-        "SUPER, down, resizeactive, 0 50"
+        "$mod, left, resizeactive, -50 0"
+        "$mod, right, resizeactive, 50 0"
+        "$mod, up, resizeactive, 0 -50"
+        "$mod, down, resizeactive, 0 50"
 
         # Pin window (sticky)
-        "SUPER SHIFT, P, pin"
-
-        # Passthrough mode
-        "SUPER, F11, submap, passthrough"
-
-        # Workspace/Tag switching (1-9)
-        "SUPER, 1, workspace, 1"
-        "SUPER, 2, workspace, 2"
-        "SUPER, 3, workspace, 3"
-        "SUPER, 4, workspace, 4"
-        "SUPER, 5, workspace, 5"
-        "SUPER, 6, workspace, 6"
-        "SUPER, 7, workspace, 7"
-        "SUPER, 8, workspace, 8"
-        "SUPER, 9, workspace, 9"
-
-        # Move window to workspace
-        "SUPER SHIFT, 1, movetoworkspace, 1"
-        "SUPER SHIFT, 2, movetoworkspace, 2"
-        "SUPER SHIFT, 3, movetoworkspace, 3"
-        "SUPER SHIFT, 4, movetoworkspace, 4"
-        "SUPER SHIFT, 5, movetoworkspace, 5"
-        "SUPER SHIFT, 6, movetoworkspace, 6"
-        "SUPER SHIFT, 7, movetoworkspace, 7"
-        "SUPER SHIFT, 8, movetoworkspace, 8"
-        "SUPER SHIFT, 9, movetoworkspace, 9"
-
-        # Move window to workspace without going with it
-        "SUPER CTRL ALT, 1, movetoworkspacesilent, 1"
-        "SUPER CTRL ALT, 2, movetoworkspacesilent, 2"
-        "SUPER CTRL ALT, 3, movetoworkspacesilent, 3"
-        "SUPER CTRL ALT, 4, movetoworkspacesilent, 4"
-        "SUPER CTRL ALT, 5, movetoworkspacesilent, 5"
-        "SUPER CTRL ALT, 6, movetoworkspacesilent, 6"
-        "SUPER CTRL ALT, 7, movetoworkspacesilent, 7"
-        "SUPER CTRL ALT, 8, movetoworkspacesilent, 8"
-        "SUPER CTRL ALT, 9, movetoworkspacesilent, 9"
+        "$mod SHIFT, P, pin"
 
         # Mouse Bindings
-        "SUPER, mouse:272, movewindow"
-        "SUPER, mouse:273, resizeactive"
-        "SUPER, mouse:274, togglefloating"
+        "$mod, mouse_down, workspace, e-1"
+        "$mod, mouse_up, workspace, e+1"
+      ]
+      ++ (
+        # workspaces
+        # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
+        builtins.concatLists (
+          builtins.genList (
+            i:
+            let
+              ws = i + 1;
+            in
+            [
+              "$mod, ${toString ws}, workspace, ${toString ws}"
+              "$mod SHIFT, ${toString ws}, movetoworkspace, ${toString ws}"
+              "$mod CTRL ALT, ${toString ws}, movetoworkspacesilent, ${toString ws}"
+            ]
+          ) 9
+        )
+      );
 
-        # Media keys
-        ", XF86AudioRaiseVolume, exec, pamixer -i 5"
-        ", XF86AudioLowerVolume, exec, pamixer -d 5"
-        ", XF86AudioMute, exec, pamixer --toggle-mute"
-        ", XF86AudioMedia, exec, playerctl play-pause"
-        ", XF86AudioPlay, exec, playerctl play-pause"
-        ", XF86AudioPrev, exec, playerctl previous"
-        ", XF86AudioNext, exec, playerctl next"
-        ", XF86MonBrightnessUp, exec, brightnessctl set +5%"
-        ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
-        ", XF86Eject, exec, eject -T"
+      bindm = [
+        "$mod, mouse:272, movewindow"
+        "$mod, mouse:273, resizeactive"
       ];
+
+      bindc = [
+        "$mod, mouse:274, togglefloating"
+      ];
+
 
       # Window rules
       windowrule = [

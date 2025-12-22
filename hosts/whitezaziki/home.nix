@@ -20,6 +20,8 @@
     jetbrains.idea-ultimate
     claude-code
     spotify
+    discord
+    mpv
   ];
 
   programs.bat = {
@@ -65,10 +67,8 @@
     enable = true;
     settings = {
       default-timeout = 5000;
-      border-color = "#89b4fa";
-      font = "JetBrainsMono Nerd Font 12";
-      background-color = "#1e1e2e";
-      text-color = "#cdd6f4";
+      margin = 9;
+      border-radius = 10;
     };
   };
 

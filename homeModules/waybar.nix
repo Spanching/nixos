@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   programs.waybar = {
@@ -18,10 +18,6 @@
           "custom/sandtimer"
           "hyprland/workspaces"
           "hyprland/window"
-          # "river/tags"
-          # "river/layout"
-          # "river/mode"
-          # "river/window"
         ];
         modules-center = [
           "clock#1"
@@ -31,19 +27,11 @@
           "pulseaudio"
           "cpu"
           "memory"
-          # "tray"
         ];
 
         "custom/sandtimer" = {
           format = "";
           tooltip = false;
-        };
-        "sway/workspaces" = {
-          disable-scroll = true;
-          format = "{name}";
-        };
-        "river/tags" = {
-          num-tags = 5;
         };
 
         "clock#1" = {
@@ -64,21 +52,21 @@
           on-click-right = "pavucontrol";
           tooltip = false;
         };
+
         "memory" = {
           interval = 5;
           format = "  {percentage:2}%";
         };
+
         "cpu" = {
           interval = 5;
           format = "  {usage:2}%";
         };
+
         "disk" = {
           interval = 5;
           format = "Disk {percentage_used:2}%";
           path = "/";
-        };
-        "tray" = {
-          icon-size = 20;
         };
       };
     };
@@ -101,18 +89,6 @@
         padding: 0 15px;
       }
 
-      #tags button {
-        padding: 3px;
-        margin: 3px;
-      }
-      #tags button.focused {
-        background: @base;
-        color: @subtext0;
-      }
-      #tags button.occupied {
-        color: @subtext1;
-      }
-
       #clock.1 {
         color: @text;
       }
@@ -122,13 +98,16 @@
         font-size: 1px;
         color: #fdf6e3;
       }
+
       #workspaces button.focused {
         color: #268bd2;
       }
+
       #workspaces button:hover {
         box-shadow: inherit;
         text-shadow: inherit;
       }
+
       #workspaces button:hover {
         background: #1a1a1a;
         border: #1a1a1a;
@@ -138,14 +117,13 @@
       #pulseaudio {
         color: @blue;
       }
+
       #memory {
         color: @yellow;
       }
+
       #cpu {
         color: @green;
-      }
-      #disk {
-        color: @text;
       }
 
       #clock {

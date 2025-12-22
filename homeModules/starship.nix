@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ lib, ... }:
 
 {
   programs.starship = {
@@ -21,8 +21,6 @@
         "$env_var"
         "$crystal"
         "$sudo"
-        # "$cmd_duration"
-        # "$time"
         "$status"
         "$container"
         "$shell"

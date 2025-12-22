@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -61,10 +56,10 @@
     ];
   };
 
-  catppuccin = {
-    enable = true;
-    flavor = "frappe";
-  };
+  # catppuccin = {
+  #   enable = true;
+  #   flavor = "frappe";
+  # };
 
   services.xserver.enable = true;
   hardware.bluetooth.enable = true;
@@ -100,13 +95,19 @@
 
   hardware.logitech.wireless.enable = true;
 
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
+  };
+
   environment.systemPackages = with pkgs; [
     git
     tmux
     htop
     ctop
     wofi
-    mako
     wl-clipboard
     wlroots
     xwayland
