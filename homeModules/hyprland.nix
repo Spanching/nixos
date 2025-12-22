@@ -74,6 +74,10 @@
 
       # Key bindings
       bind = [
+        # Special Workspace
+        "$mod SHIFT, S, movetoworkspace, special:scratch"
+        "$mod, S, togglespecialworkspace, scratch"
+
         # Terminal spawning
         "$mod, Return, exec, kitty"
 
@@ -123,8 +127,8 @@
         "$mod SHIFT, M, layoutmsg, swapwithmaster"
 
         # Set Master to around 16:9
-        "$mod, A, layoutmsg, mfact exact 0.76"
-        "$mod, S, layoutmsg, mfact exact 0.5"
+        "$mod, O, layoutmsg, mfact exact 0.76"
+        "$mod, I, layoutmsg, mfact exact 0.5"
 
         # Toggle float
         "$mod, V, togglefloating"
@@ -165,7 +169,7 @@
             [
               "$mod, ${toString ws}, workspace, ${toString ws}"
               "$mod SHIFT, ${toString ws}, movetoworkspace, ${toString ws}"
-              "$mod CTRL ALT, ${toString ws}, movetoworkspacesilent, ${toString ws}"
+              "$mod CTRL SHIFT, ${toString ws}, movetoworkspacesilent, ${toString ws}"
             ]
           ) 9
         )

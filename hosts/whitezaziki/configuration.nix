@@ -46,6 +46,11 @@
     LC_TIME = "de_DE.UTF-8";
   };
 
+  catppuccin = {
+    enable = true;
+    flavor = "frappe";
+  };
+
   # Users
   users.users.andreas = {
     isNormalUser = true;
