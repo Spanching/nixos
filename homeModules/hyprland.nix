@@ -38,6 +38,7 @@
       # Input settings
       input = {
         kb_layout = "us";
+        kb_variant = "de_se_fi"; # Umlauts with AltGr
         repeat_rate = 50;
         repeat_delay = 300;
         numlock_by_default = false;

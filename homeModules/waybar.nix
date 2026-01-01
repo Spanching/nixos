@@ -27,11 +27,31 @@
           "pulseaudio"
           "cpu"
           "memory"
+          # "network"
         ];
 
         "custom/sandtimer" = {
           format = "";
           tooltip = false;
+        };
+
+        "hyprland/workspaces" = {
+          format = "{icon}  {windows}";
+          window-rewrite-default = " ";
+          window-rewrite = {
+            "class<.*firefox.*>" = " ";
+            "class<.*kitty.*>" = " ";
+            "class<.*discord.*>" = " ";
+            "class<.*spotify.*>" = " ";
+            "class<.*steam.*>" = " ";
+            "class<.*qutebrowser.*>" = " ";
+            "title<.*youtube.*>" = " ";
+          };
+        };
+
+        "hyprland/window" = {
+          # format = "";
+          format = "{class} {title}"; # Use for debugging and window-rewrite
         };
 
         "clock#1" = {
@@ -45,7 +65,10 @@
           format-muted = "MUTE";
           format-icons = {
             headphones = "";
-            default = [" " " "];
+            default = [
+              " "
+              " "
+            ];
           };
           scroll-step = 5;
           on-click = "pamixer -t";
@@ -67,6 +90,12 @@
           interval = 5;
           format = "Disk {percentage_used:2}%";
           path = "/";
+        };
+
+        "network" = {
+          "format-ethernet" = "{bandwidthUpBytes}  {bandwidthDownBytes}";
+          "tooltip-format-ethernet" = "{ifname} ";
+          "tooltip-format-disconnected" = "Disconnected";
         };
       };
     };
@@ -94,24 +123,20 @@
       }
 
       #workspaces button {
-        padding: 0 2px;
-        font-size: 1px;
-        color: #fdf6e3;
+        margin: 3px;
+        padding: 3px;
+        color: @subtext0;
       }
 
-      #workspaces button.focused {
-        color: #268bd2;
+      #workspaces button.active {
+        color: #fdf6e3;
       }
 
       #workspaces button:hover {
         box-shadow: inherit;
         text-shadow: inherit;
-      }
-
-      #workspaces button:hover {
-        background: #1a1a1a;
-        border: #1a1a1a;
-        padding: 0 3px;
+        background: @surface0;
+        border: @surface0;
       }
 
       #pulseaudio {
@@ -134,6 +159,7 @@
       #memory,
       #cpu,
       #battery,
+      #network,
       #disk {
         padding: 0 10px;
       }

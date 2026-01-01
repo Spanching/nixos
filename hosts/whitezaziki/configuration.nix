@@ -12,6 +12,15 @@
     "flakes"
   ];
 
+  # nixpkgs.overlays = [
+  #   (self: super: {
+  #     discord = super.discord.overrideAttrs (_: {
+  #       src = builtins.fetchTarball "https://discord.com/api/download/stable?platform=linux&format=tar.gz";
+  #       sha256 = "";
+  #     });
+  #   })
+  # ];
+
   # Bootloader and EFI
   boot.loader = {
     efi = {
@@ -60,11 +69,6 @@
       "networkmanager"
     ];
   };
-
-  # catppuccin = {
-  #   enable = true;
-  #   flavor = "frappe";
-  # };
 
   services.xserver.enable = true;
   hardware.bluetooth.enable = true;
