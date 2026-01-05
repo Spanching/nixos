@@ -36,9 +36,21 @@
   };
 
   # Host & Networking
-  networking.hostName = "whitezaziki";
-  networking.networkmanager.enable = true;
-  networking.firewall.enable = true;
+  networking = {
+    hostName = "whitezaziki";
+    networkmanager.enable = true;
+    firewall = {
+      enable = true;
+      allowedUDPPorts = [ 9 ];
+      allowedTCPPortRanges = [{ from = 49152; to = 65535; }];
+      allowedUDPPortRanges = [{ from = 49152; to = 65535; }];
+    };
+    interfaces = {
+      enp6s0 = {
+        wakeOnLan.enable = true;
+      };
+    };
+  };
 
   # Time and Locale
   time.timeZone = "Europe/Berlin";

@@ -14,7 +14,11 @@
       hide_scroll = true;
       print_command = true;
       insensitive = true;
-      columns = 2;
+      columns = 1;
+      key_up = "Ctrl-k";
+      key_down = "Ctrl-j";
+      key_left = "Ctrl-h";
+      key_righ = "Ctrl-l";
     };
     style = ''
       @define-color	rosewater  #f2d5cf;

@@ -22,6 +22,7 @@
     spotify
     discord
     mpv
+    cliphist
   ];
 
   programs.bat = {

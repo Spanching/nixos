@@ -50,6 +50,7 @@
         "swaybg -i ~/.config/background.png"
         "waybar"
         "mako"
+        "wl-paste --watch cliphist store"
       ];
 
       animation = [
@@ -132,7 +133,7 @@
         "$mod, I, layoutmsg, mfact exact 0.5"
 
         # Toggle float
-        "$mod, V, togglefloating"
+        "$mod, T, togglefloating"
 
         # Toggle fullscreen
         "$mod, F, fullscreen, 0"
@@ -157,6 +158,9 @@
         # Mouse Bindings
         "$mod, mouse_down, workspace, e-1"
         "$mod, mouse_up, workspace, e+1"
+
+        # Clipboard History
+        "$mod, V, exec, cliphist list | wofi -j -S dmenu | cliphist decode | wl-copy"
       ]
       ++ (
         # workspaces
