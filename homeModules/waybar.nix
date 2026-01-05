@@ -28,6 +28,7 @@
           "cpu"
           "memory"
           # "network"
+          "group/group-power"
         ];
 
         "custom/sandtimer" = {
@@ -97,6 +98,41 @@
           "tooltip-format-ethernet" = "{ifname} ";
           "tooltip-format-disconnected" = "Disconnected";
         };
+
+        "group/group-power" = {
+          "orientation" = "inherit";
+          "drawer" = {
+            "transition-duration" = 500;
+            "children-class" = "not-power";
+            "transition-left-to-right" = false;
+          };
+          "modules" = [
+            "custom/power"
+            "custom/quit"
+            "custom/lock"
+            "custom/reboot"
+          ];
+        };
+        "custom/quit" = {
+          "format" = "󰗼";
+          "tooltip" = false;
+          "on-click" = "hyprctl dispatch exit";
+        };
+        "custom/lock" = {
+          "format" = "󰍁";
+          "tooltip" = false;
+          "on-click" = "hyprlock";
+        };
+        "custom/reboot" = {
+          "format" = "󰜉";
+          "tooltip" = false;
+          "on-click" = "reboot";
+        };
+        "custom/power" = {
+          "format" = "";
+          "tooltip" = false;
+          "on-click" = "shutdown now";
+        };
       };
     };
     style = ''
@@ -161,6 +197,16 @@
       #battery,
       #network,
       #disk {
+        padding: 0 10px;
+      }
+      #group-power { 
+        padding: 0 10px;
+      }
+
+      #custom-power,
+      #custom-reboot,
+      #custom-lock,
+      #custom-quit {
         padding: 0 10px;
       }
     '';

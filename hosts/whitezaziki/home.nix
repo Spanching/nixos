@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   home.username = "andreas";
@@ -14,15 +14,14 @@
   home.packages = with pkgs; [
     docker-compose
     firefox
-    swaybg
     vscode-langservers-extracted
-    # jellyfin-media-player depends on vulerable version of qtbrowser
     jetbrains.idea-ultimate
     claude-code
     spotify
     discord
     mpv
     cliphist
+    # jellyfin-media-player depends on vulerable version of qtbrowser
   ];
 
   programs.bat = {

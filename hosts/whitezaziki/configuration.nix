@@ -12,15 +12,6 @@
     "flakes"
   ];
 
-  # nixpkgs.overlays = [
-  #   (self: super: {
-  #     discord = super.discord.overrideAttrs (_: {
-  #       src = builtins.fetchTarball "https://discord.com/api/download/stable?platform=linux&format=tar.gz";
-  #       sha256 = "";
-  #     });
-  #   })
-  # ];
-
   # Bootloader and EFI
   boot.loader = {
     efi = {
@@ -42,8 +33,8 @@
     firewall = {
       enable = true;
       allowedUDPPorts = [ 9 ];
-      allowedTCPPortRanges = [{ from = 49152; to = 65535; }];
-      allowedUDPPortRanges = [{ from = 49152; to = 65535; }];
+      # allowedTCPPortRanges = [{ from = 49152; to = 65535; }];
+      # allowedUDPPortRanges = [{ from = 49152; to = 65535; }];
     };
     interfaces = {
       enp6s0 = {

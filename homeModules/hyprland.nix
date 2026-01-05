@@ -47,7 +47,7 @@
 
       # Startup applications
       exec-once = [
-        "swaybg -i ~/.config/background.png"
+        "hyprpaper"
         "waybar"
         "mako"
         "wl-paste --watch cliphist store"
@@ -203,6 +203,105 @@
         orientation = "left";
         mfact = 0.5;
       };
+    };
+  };
+
+  services.hyprpaper = {
+    enable = true;
+    settings = {
+      preload = [
+        "~/.config/background.jpeg"
+      ];
+      wallpaper = [
+        "HDMI-A-2,~/.config/background.jpeg"
+        "HDMI-A-3,~/.config/background.jpeg"
+      ];
+      splash = false;
+    };
+  };
+
+  programs.hyprlock = {
+    enable = true;
+    settings = {
+      general = {
+        hide_cursor = true;
+      };
+
+      background = {
+        path = "$HOME/.config/background";
+        blur_passes = 0;
+        color = "$base";
+      };
+
+      label = [
+        {
+          monitor = "HDMI-A-2";
+          text = ''cmd[update:43200000] date +"%A, %d %B %Y"'';
+          color = "$text";
+          font_size = 25;
+          font_family = "$font";
+          position = "-30, -150";
+          halign = "right";
+          valign = "top";
+        }
+        {
+          monitor = "HDMI-A-2";
+          text = "$TIME";
+          color = "$text";
+          font_size = 90;
+          font_family = "$font";
+          position = "-30 0";
+          halign = "right";
+          valign = "top";
+        }
+      ];
+
+      input-field = [
+        {
+          monitor = "HDMI-A-2";
+          size = "300, 60";
+          outline_thickness = 4;
+          dots_size = 0.2;
+          dots_spacing = 0.2;
+          dots_center = true;
+          outer_color = "$accent";
+          inner_color = "$surface0";
+          font_color = "$text";
+          fade_on_empty = false;
+          placeholder_text = ''<span foreground="##$textAlpha"><i>󰌾 Logged in as </i><span foreground="##$accentAlpha">$USER</span></span>'';
+          hide_input = false;
+          check_color = "$accent";
+          fail_color = "$red";
+          fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
+          capslock_color = "$yellow";
+          position = "0, -47";
+          halign = "center";
+          valign = "center";
+        }
+      ];
+    };
+  };
+
+  services.hypridle = {
+    enable = true;
+    settings = {
+      general = {
+        lock_cmd = "pidof hyprlock || hyprlock";
+        before_sleep_cmd = "loginctl lock-session";
+        after_sleep_cmd = "hyprctl dispatch dpms on";
+      };
+
+      listener = [
+        {
+          timeout = 300;
+          on-timeout = "hyprlock";
+        }
+        {
+          timeout = 600;
+          on-timeout = "hyprctl dispatch dpms off";
+          on-resume = "hyprctl dispatch dpms on";
+        }
+      ];
     };
   };
 }
