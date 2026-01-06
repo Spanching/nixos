@@ -50,6 +50,7 @@
         "hyprpaper"
         "waybar"
         "mako"
+        "openrgb -p default"
         "wl-paste --watch cliphist store"
       ];
 
@@ -161,6 +162,8 @@
 
         # Clipboard History
         "$mod, V, exec, cliphist list | wofi -j -S dmenu | cliphist decode | wl-copy"
+
+        "$mod, T, togglegroup"
       ]
       ++ (
         # workspaces

@@ -21,6 +21,7 @@
     discord
     mpv
     cliphist
+    bluetui
     # jellyfin-media-player depends on vulerable version of qtbrowser
   ];
 

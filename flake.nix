@@ -11,7 +11,7 @@
     catppuccin.url = "github:catppuccin/nix/release-25.05";
   };
 
-  outputs = { self, nixpkgs, catppuccin, home-manager, ... }: {
+  outputs = { nixpkgs, catppuccin, home-manager, ... }: {
     nixosConfigurations.whitezaziki = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       
