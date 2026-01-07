@@ -137,10 +137,10 @@
         "$mod, T, togglefloating"
 
         # Toggle fullscreen
-        "$mod, F, fullscreen, 0"
+        "$mod, F, fullscreen, 1"
 
         # Toggle maximize (opaque fullscreen)
-        "$mod SHIFT, F, fullscreen, 1"
+        "$mod SHIFT, F, fullscreen, 0"
 
         # Resize windows (hold and drag alternative)
         "$mod ALT SHIFT, H, resizeactive, -50 0"
@@ -183,6 +183,18 @@
         )
       );
 
+      bindel = [
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+      ];
+
+      bindl = [
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioPlay, exec, playerctl play-pause"
+        ", XF86AudioPrev, exec, playerctl previous"
+        ", XF86AudioNext, exec, playerctl next"
+      ];
+
       bindm = [
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizeactive"
@@ -191,7 +203,6 @@
       bindc = [
         "$mod, mouse:274, togglefloating"
       ];
-
 
       # Window rules
       windowrule = [

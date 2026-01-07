@@ -34,6 +34,8 @@
     enableBashIntegration = true;
   };
 
+  services.playerctld.enable = true;
+
   programs.yazi.enable = true;
 
   programs.kitty = {

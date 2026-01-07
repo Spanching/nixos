@@ -14,11 +14,11 @@
       hide_scroll = true;
       print_command = true;
       insensitive = true;
-      columns = 1;
+      columns = 2;
       key_up = "Ctrl-k";
       key_down = "Ctrl-j";
       key_left = "Ctrl-h";
-      key_righ = "Ctrl-l";
+      key_right = "Ctrl-l";
     };
     style = ''
       @define-color	rosewater  #f2d5cf;
@@ -84,8 +84,8 @@
         margin: 0px;
         padding: 10px;
         border: 0.16em solid @lavender;
-        border-radius: 0.1em;
-        background-color: @base;
+        border-radius: 10px;
+        background-color: rgba(48, 52, 70, 0.99);
         animation: slideIn 0.5s ease-in-out both;
       }
 
@@ -153,7 +153,6 @@
       }
 
       #input * {
-        outline: 4px solid @red;
       }
 
       /* Text */
@@ -164,8 +163,15 @@
         animation: fadeIn 0.5s ease-in-out both;
       }
 
+      #input:focus {
+        box-shadow: none;
+        border: 0.11em solid @lavender;
+        border-radius: 10px;
+      } 
+
       #entry {
         background-color: @base;
+        border-radius: 10px;
       }
 
       #entry arrow {
