@@ -23,6 +23,7 @@
     cliphist
     bluetui
     bemoji
+    jq
     # jellyfin-media-player depends on vulerable version of qtbrowser
   ];
 

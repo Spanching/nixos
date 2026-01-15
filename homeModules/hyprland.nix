@@ -11,6 +11,10 @@
         "HDMI-A-3,1440x900@60,560x-900,1"
       ];
 
+      debug = {
+        disable_logs = true;
+      };
+
       dwindle = {
         # force_split = 2;
         preserve_split = true;
@@ -169,8 +173,8 @@
         "$mod SHIFT, P, pin"
 
         # Mouse Bindings
-        "$mod, mouse_down, workspace, e-1"
-        "$mod, mouse_up, workspace, e+1"
+        "$mod, mouse_down, workspace, -1"
+        "$mod, mouse_up, workspace, +1"
 
         # Clipboard History
         "$mod, V, exec, cliphist list | wofi -j -S dmenu | cliphist decode | wl-copy"
@@ -214,8 +218,57 @@
         "$mod, mouse:273, resizeactive"
       ];
 
+      # Mouse config in solaar to be used here:
+      # buttons:
+      # - !Button {behavior: 8, type: 1, value: 1}     # Left click
+      # - !Button {behavior: 8, type: 1, value: 2}     # Right click
+      # - !Button {behavior: 8, type: 1, value: 4}     # Middle click
+      # - !Button {behavior: 8, type: 1, value: 8}     # Back
+      # - !Button {behavior: 8, type: 1, value: 16}    # Forward (was DPI shift)
+      # - !Button {behavior: 8, type: 1, value: 32}    # Button 6 (DPI button)
+      # - !Button {behavior: 8, type: 1, value: 64}    # Button 7
+      # - !Button {behavior: 8, type: 1, value: 128}   # Button 8
+      # - !Button {behavior: 8, type: 1, value: 256}   # Button 9
+      # - !Button {behavior: 8, type: 1, value: 512}   # Button 10
+      # - !Button {behavior: 8, type: 1, value: 1024}  # Button 11
       bindc = [
         "$mod, mouse:274, togglefloating"
+
+        ", mouse:276, exec, playerctl play-pause" # side thumb
+
+        '', mouse:281, exec, ~/.local/bin/focus_action.sh \
+          "firefox" \
+          "hyprctl dispatch sendshortcut CTRL SHIFT, t, activewindow" \
+          "hyprctl dispatch cyclenext prev"
+        '' # top front
+
+        '', mouse:282, exec, ~/.local/bin/focus_action.sh \
+          "firefox" \
+          "hyprctl dispatch sendshortcut CTRL, w, activewindow" \
+          "hyprctl dispatch cyclenext"
+        '' # top back
+
+        '', mouse:277, exec, ~/.local/bin/focus_action.sh \
+          "firefox" \
+          "hyprctl dispatch sendshortcut CTRL, TAB, activewindow" \
+          "hyprctl dispatch workspace +1"
+        '' # side front
+
+        '', mouse:275, exec, ~/.local/bin/focus_action.sh \
+          "firefox" \
+          "hyprctl dispatch sendshortcut CTRL SHIFT, TAB, activewindow" \
+          "hyprctl dispatch workspace -1"
+        '' # side back
+
+        "$mod, mouse:275, togglefloating" # side back
+        "$mod, mouse:276, togglefloating" # side thumb
+        "$mod, mouse:277, togglefloating" # side front
+
+        # MMB Left 278, MMB right 279, MMB 274
+        # left 272, right 273
+        # side thumb 276, side front 277, side back 275
+        # top front 281, top back 282
+
       ];
 
       # Window rules
@@ -234,6 +287,8 @@
 
       group = {
         auto_group = true;
+        "col.border_active" = "rgb(186,187,241)";
+        "col.border_inactive" = "rgb(48,52,70)";
         groupbar = {
           "col.active" = "rgb(babbf1)";
           "col.inactive" = "rgb(232634)";
@@ -344,5 +399,25 @@
         }
       ];
     };
+  };
+
+  home.file.".local/bin/focus_action.sh" = {
+    text = ''
+      #!/usr/bin/env bash
+      # Usage: ./focus_action.sh <target_class> <cmd_if_match> <cmd_if_no_match>
+      TARGET_CLASS="$1"
+      MATCH_CMD="$2"
+      OTHER_CMD="$3"
+
+      # Get current window class using JSON output
+      CURRENT_CLASS=$(${pkgs.hyprland}/bin/hyprctl activewindow -j | ${pkgs.jq}/bin/jq -r '.class')
+
+      if [[ "$CURRENT_CLASS" == "$TARGET_CLASS" ]]; then
+          eval "$MATCH_CMD"
+      else
+          eval "$OTHER_CMD"
+      fi
+    '';
+    executable = true;
   };
 }
