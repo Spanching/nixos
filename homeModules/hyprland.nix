@@ -1,9 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, hyprland-plugins, ... }:
 
 {
   wayland.windowManager.hyprland = {
     enable = true;
-    package = pkgs.hyprland;
+    # package is now provided by hyprland.homeManagerModules.default
+    plugins = [
+      hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
+    ];
     settings = {
       "$mod" = "SUPER";
       monitor = [
@@ -96,6 +99,7 @@
         # Window management
         "$mod, W, killactive"
         "$mod SHIFT, Q, exit"
+        "$mod, Escape, exec, hyprlock"
 
         # Focus navigation (vim keys)
         "$mod, H, movefocus, l"
@@ -119,8 +123,8 @@
         "$mod CTRL, K, movewindoworgroup, u"
         "$mod CTRL, L, movewindoworgroup, r"
 
-        "$mod, page_up, changegroupactive, b"
-        "$mod, page_down, changegroupactive, f"
+        "$mod, page_down, changegroupactive, b"
+        "$mod, page_up, changegroupactive, f"
         # Focus monitor
         "$mod, Period, focusmonitor, +1"
         "$mod, Comma, focusmonitor, -1"
@@ -182,6 +186,9 @@
         "$mod, G, togglegroup"
 
         "$mod, E, exec, bemoji -n"
+
+        # Workspace overview (Hyprexpo plugin)
+        "$mod, Tab, hyprexpo:expo, toggle"
       ]
       ++ (
         # workspaces
@@ -236,28 +243,32 @@
 
         ", mouse:276, exec, playerctl play-pause" # side thumb
 
-        '', mouse:281, exec, ~/.local/bin/focus_action.sh \
-          "firefox" \
-          "hyprctl dispatch sendshortcut CTRL SHIFT, t, activewindow" \
-          "hyprctl dispatch cyclenext prev"
+        ''
+          , mouse:281, exec, ~/.local/bin/focus_action.sh \
+                    "firefox" \
+                    "hyprctl dispatch sendshortcut CTRL SHIFT, t, activewindow" \
+                    "hyprctl dispatch cyclenext prev"
         '' # top front
 
-        '', mouse:282, exec, ~/.local/bin/focus_action.sh \
-          "firefox" \
-          "hyprctl dispatch sendshortcut CTRL, w, activewindow" \
-          "hyprctl dispatch cyclenext"
+        ''
+          , mouse:282, exec, ~/.local/bin/focus_action.sh \
+                    "firefox" \
+                    "hyprctl dispatch sendshortcut CTRL, w, activewindow" \
+                    "hyprctl dispatch cyclenext"
         '' # top back
 
-        '', mouse:277, exec, ~/.local/bin/focus_action.sh \
-          "firefox" \
-          "hyprctl dispatch sendshortcut CTRL, TAB, activewindow" \
-          "hyprctl dispatch workspace +1"
+        ''
+          , mouse:277, exec, ~/.local/bin/focus_action.sh \
+                    "firefox" \
+                    "hyprctl dispatch sendshortcut CTRL, TAB, activewindow" \
+                    "hyprctl dispatch workspace +1"
         '' # side front
 
-        '', mouse:275, exec, ~/.local/bin/focus_action.sh \
-          "firefox" \
-          "hyprctl dispatch sendshortcut CTRL SHIFT, TAB, activewindow" \
-          "hyprctl dispatch workspace -1"
+        ''
+          , mouse:275, exec, ~/.local/bin/focus_action.sh \
+                    "firefox" \
+                    "hyprctl dispatch sendshortcut CTRL SHIFT, TAB, activewindow" \
+                    "hyprctl dispatch workspace -1"
         '' # side back
 
         "$mod, mouse:275, togglefloating" # side back
@@ -268,13 +279,10 @@
         # left 272, right 273
         # side thumb 276, side front 277, side back 275
         # top front 281, top back 282
-
       ];
 
-      # Window rules
       windowrule = [
-        "float, class:^(float.*)$"
-        "float, title:^(foo)$"
+        "match:class ^(org.pulseaudio.pavucontrol)$, float on, size 800 600, center on"
       ];
 
       # Master layout settings
@@ -297,6 +305,17 @@
           stacked = false;
           round_only_edges = false;
           rounding = 3;
+        };
+      };
+
+      # Hyprexpo plugin settings
+      plugin = {
+        hyprexpo = {
+          columns = 3;
+          gap_size = 6;
+          bg_col = "rgb(111111)";
+          workspace_method = "center current";
+          enable_gesture = false;
         };
       };
     };
@@ -410,7 +429,7 @@
       OTHER_CMD="$3"
 
       # Get current window class using JSON output
-      CURRENT_CLASS=$(${pkgs.hyprland}/bin/hyprctl activewindow -j | ${pkgs.jq}/bin/jq -r '.class')
+      CURRENT_CLASS=$(hyprctl activewindow -j | ${pkgs.jq}/bin/jq -r '.class')
 
       if [[ "$CURRENT_CLASS" == "$TARGET_CLASS" ]]; then
           eval "$MATCH_CMD"
