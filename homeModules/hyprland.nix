@@ -100,11 +100,23 @@
         "$mod, L, movefocus, r"
 
         # Swap windows (master layout)
-        "$mod SHIFT, H, swapwindow, l"
-        "$mod SHIFT, J, swapwindow, d"
-        "$mod SHIFT, K, swapwindow, u"
-        "$mod SHIFT, L, swapwindow, r"
+        "$mod SHIFT, H, movewindow, l"
+        "$mod SHIFT, J, movewindow, d"
+        "$mod SHIFT, K, movewindow, u"
+        "$mod SHIFT, L, movewindow, r"
 
+        "$mod ALT, H, movewindoworgroup, l"
+        "$mod ALT, J, movewindoworgroup, d"
+        "$mod ALT, K, movewindoworgroup, u"
+        "$mod ALT, L, movewindoworgroup, r"
+
+        "$mod CTRL, H, movewindoworgroup, l"
+        "$mod CTRL, J, movewindoworgroup, d"
+        "$mod CTRL, K, movewindoworgroup, u"
+        "$mod CTRL, L, movewindoworgroup, r"
+
+        "$mod, page_up, changegroupactive, b"
+        "$mod, page_down, changegroupactive, f"
         # Focus monitor
         "$mod, Period, focusmonitor, +1"
         "$mod, Comma, focusmonitor, -1"
@@ -163,7 +175,9 @@
         # Clipboard History
         "$mod, V, exec, cliphist list | wofi -j -S dmenu | cliphist decode | wl-copy"
 
-        "$mod, T, togglegroup"
+        "$mod, G, togglegroup"
+
+        "$mod, E, exec, bemoji -n"
       ]
       ++ (
         # workspaces
@@ -216,6 +230,19 @@
         new_on_top = false;
         orientation = "left";
         mfact = 0.5;
+      };
+
+      group = {
+        auto_group = true;
+        groupbar = {
+          "col.active" = "rgb(babbf1)";
+          "col.inactive" = "rgb(232634)";
+          indicator_height = 6;
+          render_titles = false;
+          stacked = false;
+          round_only_edges = false;
+          rounding = 3;
+        };
       };
     };
   };

@@ -63,6 +63,10 @@
     flavor = "frappe";
   };
 
+  services.openssh = {
+    enable = true;
+  };
+
   # Users
   users.users.andreas = {
     isNormalUser = true;

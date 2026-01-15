@@ -46,11 +46,42 @@
 
       bind-key -n 'C-Space' if-shell "$is_vim" 'send-keys C-Space' 'select-pane -t:.+'
 
+      # open new windows in current directory
+      bind c new-window -c "#{pane_current_path}"
+
       # use PREFIX - to split vertically
       bind - split-window -v -c "#{pane_current_path}"
 
       # use PREFIX | to split window horizontally and 
       bind | split-window -h -c "#{pane_current_path}"
+
+      # Make the current window the first window
+      bind T swap-window -t 1
+
+      # Make the current pane the first pane
+      bind P swap-pane -t 1
+
+      # use C-a to cycle through panes
+      bind -n C-a select-pane -t :.+
+
+      # Make the current window the first window
+      bind T swap-window -t 1
+
+      # Make the current pane the first pane
+      bind P swap-pane -t 1
+
+      # use C-a to cycle through panes
+      bind -n C-a select-pane -t :.+
+
+      # use C-h and C-l to cycle through windows
+      bind C-h select-window -t :-
+      bind C-l select-window -t :+
+
+      # resize panes using PREFIX H, J, K, L
+      bind H resize-pane -L 15
+      bind J resize-pane -D 15
+      bind K resize-pane -U 15
+      bind L resize-pane -R 15
     '';
   };
 }

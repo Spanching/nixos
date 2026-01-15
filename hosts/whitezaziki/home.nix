@@ -22,8 +22,20 @@
     mpv
     cliphist
     bluetui
+    bemoji
     # jellyfin-media-player depends on vulerable version of qtbrowser
   ];
+
+  services.flameshot = {
+    enable = true;
+    settings = {
+      General = {
+        useGrimAdapter = true;
+        disabledGrimWarning = true;
+        disabledTrayIcon = true;
+      };
+    };
+  };
 
   programs.bat = {
     enable = true;

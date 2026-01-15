@@ -9,6 +9,7 @@
       lua-language-server
       nil
       vscode-langservers-extracted
+      gopls
 
       ripgrep
       fd

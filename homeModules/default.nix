@@ -11,5 +11,6 @@
     ./starship.nix
     ./git.nix
     ./qutebrowser.nix
+    ./mail.nix
   ];
 }
