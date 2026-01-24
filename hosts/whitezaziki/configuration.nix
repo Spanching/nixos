@@ -31,7 +31,7 @@
       useOSProber = true;
     };
   };
-
+  programs.nix-ld.enable = true;
   # Host & Networking
   networking = {
     hostName = "whitezaziki";
@@ -73,6 +73,8 @@
     enable = true;
   };
 
+  services.udisks2.enable = true;
+
   # Users
   users.users.andreas = {
     isNormalUser = true;
@@ -80,6 +82,7 @@
       "docker"
       "wheel"
       "networkmanager"
+      "kvm"
     ];
   };
 

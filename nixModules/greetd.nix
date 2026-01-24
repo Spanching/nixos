@@ -4,7 +4,7 @@
   services.greetd.enable = true;
   services.greetd.settings = {
     default_session = {
-      command = "hyprland";
+      command = "start-hyprland";
       user = "andreas";
     };
   };

@@ -12,5 +12,8 @@
     ./git.nix
     ./qutebrowser.nix
     ./mail.nix
+    ./vscode.nix
+    ./obs.nix
+    ./screenshot.nix
   ];
 }

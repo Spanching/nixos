@@ -15,7 +15,6 @@
     docker-compose
     firefox
     vscode-langservers-extracted
-    jetbrains.idea-ultimate
     claude-code
     spotify
     discord
@@ -42,9 +41,24 @@
     enable = true;
   };
 
+  services.udiskie = {
+    enable = true;
+    settings = {
+      program_options = {
+        # replace with your favorite file manager
+        file_manager = "${pkgs.yazi}/bin/yazi";
+      };
+    };
+  };
+
+  programs.fish = {
+    enable = true;
+  };
+
   programs.starship = {
     enable = true;
     enableBashIntegration = true;
+    # enableFishIntegration = true;
   };
 
   services.playerctld.enable = true;
@@ -69,7 +83,10 @@
       ns = "nix-shell -p";
       nnix = "nvim /etc/nixos";
       confedit = "sudo -E -s nvim /etc/nixos/configuration.nix";
-      snvim = "sudo -E -s nvim";
+      svim = "sudo -E -s nvim";
+      bm = "cd ~/Projects/BundesMenschen";
+      vs = "bm && cd voting-service";
+      dc = "bm && cd democracy_check";
     };
   };
 

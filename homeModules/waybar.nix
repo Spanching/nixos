@@ -51,7 +51,7 @@
         };
 
         "hyprland/window" = {
-          format = "";
+          format = "{class}";
           # format = "{class} {title}"; # Use for debugging and window-rewrite
         };
 

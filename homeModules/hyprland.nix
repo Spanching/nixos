@@ -15,7 +15,7 @@
       ];
 
       debug = {
-        disable_logs = true;
+        disable_logs = false;
       };
 
       dwindle = {
@@ -90,6 +90,7 @@
 
         # Terminal spawning
         "$mod, Return, exec, kitty"
+        "$mod CTRL, Return, exec, fish"
 
         # Application launcher
         "$mod, D, exec, wofi --show run"
@@ -189,6 +190,22 @@
 
         # Workspace overview (Hyprexpo plugin)
         "$mod, Tab, hyprexpo:expo, toggle"
+
+        "$mod CTRL, left, workspace, -1"
+        "$mod CTRL, right, workspace, +1"
+
+        "$mod, Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
+        "$mod SHIFT, Print, exec, grim"
+        ''$mod ALT, Print, exec, grim -o "$(hyprctl -j monitors | jq -r '.[] | select(.focused) | .name')"''
+        ''$mod CTRL, Print, exec, grim -g "$(hyprctl -j activewindow | jq -j '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')"''
+        # "$mod, Print, exec grim --notify save screen $($HOME/pictures)/$(TZ=utc date +'screenshot_%Y-%m-%d-%H%M%S.%3N.png')" # All visible outputs
+        # "$mod, Shift+Print, exec grim --notify save area $($HOME/pictures)/$(TZ=utc date +'screenshot_%Y-%m-%d-%H%M%S.%3N.png')" # Manually select a region
+        # "$mod, Alt+Print, exec grim --notify save active $($HOME/pictures)/$(TZ=utc date +'screenshot_%Y-%m-%d-%H%M%S.%3N.png')" # Currently active window
+        # "$mod, Shift+Alt+Print, exec grim --notify save window $($HOME/pictures)/$(TZ=utc date +'screenshot_%Y-%m-%d-%H%M%S.%3N.png')" # Manually select a window
+        # "$mod, Ctrl+Print, exec grim --notify copy screen"
+        # "$mod, Ctrl+Shift+Print, exec grim --notify copy area"
+        # "$mod, Ctrl+Alt+Print, exec grim --notify copy active"
+        # "$mod, Ctrl+Shift+Alt+Print, exec grim --notify copy window"
       ]
       ++ (
         # workspaces
@@ -311,10 +328,10 @@
       # Hyprexpo plugin settings
       plugin = {
         hyprexpo = {
-          columns = 3;
+          columns = 2;
           gap_size = 6;
-          bg_col = "rgb(111111)";
-          workspace_method = "center current";
+          bg_col = "rgb(232634)";
+          workspace_method = "first 1";
           enable_gesture = false;
         };
       };
@@ -424,18 +441,68 @@
     text = ''
       #!/usr/bin/env bash
       # Usage: ./focus_action.sh <target_class> <cmd_if_match> <cmd_if_no_match>
+
+      # Script configuration
+      readonly SCRIPT_NAME="$(basename "$0")"
+      readonly LOG_PREFIX="[$SCRIPT_NAME]"
+
       TARGET_CLASS="$1"
       MATCH_CMD="$2"
       OTHER_CMD="$3"
 
-      # Get current window class using JSON output
-      CURRENT_CLASS=$(hyprctl activewindow -j | ${pkgs.jq}/bin/jq -r '.class')
+      log() {
+          local level="$1"
+          shift
+          echo "$LOG_PREFIX [$level] $*" >&2
+      }
 
-      if [[ "$CURRENT_CLASS" == "$TARGET_CLASS" ]]; then
-          eval "$MATCH_CMD"
-      else
-          eval "$OTHER_CMD"
+      log "INFO" "Script started"
+      log "DEBUG" "Target class: '$TARGET_CLASS'"
+      log "DEBUG" "Match command: '$MATCH_CMD'"
+      log "DEBUG" "No-match command: '$OTHER_CMD'"
+
+      # Get current window class using JSON output
+      log "DEBUG" "Querying active window information..."
+      if ! ACTIVE_WINDOW_JSON=$(hyprctl activewindow -j 2>&1); then
+          log "ERROR" "Failed to get active window information: $ACTIVE_WINDOW_JSON"
+          exit 2
       fi
+
+      log "DEBUG" "Parsing window class from JSON..."
+      if ! CURRENT_CLASS=$(echo "$ACTIVE_WINDOW_JSON" | ${pkgs.jq}/bin/jq -r '.class' 2>&1); then
+          log "ERROR" "Failed to parse window class: $CURRENT_CLASS"
+          exit 3
+      fi
+
+      log "INFO" "Current window class: '$CURRENT_CLASS'"
+
+      # Compare and execute appropriate command
+      if [[ "$CURRENT_CLASS" == "$TARGET_CLASS" ]]; then
+          log "INFO" "Class MATCHED - executing match command"
+          log "DEBUG" "Executing: $MATCH_CMD"
+          
+          if eval "$MATCH_CMD"; then
+              log "INFO" "Match command executed successfully"
+          else
+              EXIT_CODE=$?
+              log "ERROR" "Match command failed with exit code: $EXIT_CODE"
+              exit $EXIT_CODE
+          fi
+      else
+          log "INFO" "Class NOT matched - executing no-match command"
+          log "DEBUG" "Expected: '$TARGET_CLASS', Got: '$CURRENT_CLASS'"
+          log "DEBUG" "Executing: $OTHER_CMD"
+          
+          if eval "$OTHER_CMD"; then
+              log "INFO" "No-match command executed successfully"
+          else
+              EXIT_CODE=$?
+              log "ERROR" "No-match command failed with exit code: $EXIT_CODE"
+              exit $EXIT_CODE
+          fi
+      fi
+
+      log "INFO" "Script completed successfully"
     '';
     executable = true;
   };
