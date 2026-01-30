@@ -40,6 +40,16 @@
         shadow = {
           enabled = false;
         };
+        dim_special = 0.0;
+      };
+
+      blurls = [];
+
+      misc = {
+        disable_hyprland_logo = true;
+        disable_splash_rendering = true;
+        vfr = true;
+        vrr = 1;
       };
 
       # Input settings
@@ -55,15 +65,18 @@
       # Startup applications
       exec-once = [
         "hyprpaper"
-        "waybar"
+        "waybar &> ~/waybar_startup.log"
         "mako"
         "openrgb -p default"
         "wl-paste --watch cliphist store"
       ];
 
       animation = [
-        "windows, 1, 6, default, slide"
-        "workspaces, 1, 6, default, slide"
+        "global, 1, 3, default"
+        "fade, 0"
+        "layers, 0"
+        "workspaces, 1, 6, default"
+        "specialWorkspace, 1, 3, default, slidevert"
       ];
 
       workspace = [
@@ -150,6 +163,8 @@
         "$mod, M, layoutmsg, focusmaster"
         "$mod SHIFT, M, layoutmsg, swapwithmaster"
 
+        "$mod, TAB, layoutmsg, rollnext"
+
         # Set Master to around 16:9
         "$mod, O, layoutmsg, mfact exact 0.76"
         "$mod, I, layoutmsg, mfact exact 0.5"
@@ -189,7 +204,7 @@
         "$mod, E, exec, bemoji -n"
 
         # Workspace overview (Hyprexpo plugin)
-        "$mod, Tab, hyprexpo:expo, toggle"
+        # "$mod, Tab, hyprexpo:expo, toggle"
 
         "$mod CTRL, left, workspace, -1"
         "$mod CTRL, right, workspace, +1"

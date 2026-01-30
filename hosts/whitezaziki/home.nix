@@ -23,8 +23,14 @@
     bluetui
     bemoji
     jq
+    youtube-tui
+    yt-dlp
+    pulsemixer
+    pamixer
     # jellyfin-media-player depends on vulerable version of qtbrowser
   ];
+
+  
 
   services.flameshot = {
     enable = true;
@@ -87,6 +93,10 @@
       bm = "cd ~/Projects/BundesMenschen";
       vs = "bm && cd voting-service";
       dc = "bm && cd democracy_check";
+      nd = "nix develop";
+      ndc = "nix develop --command";
+      ndi = "nix develop --command idea";
+      nda = "nix develop --command android-studio";
     };
   };
 

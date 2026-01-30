@@ -138,7 +138,6 @@
     xwayland
     wlr-randr
     wget
-    pavucontrol
     docker
     kitty
     solaar

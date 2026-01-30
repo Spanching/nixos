@@ -62,8 +62,7 @@
 
         "pulseaudio" = {
           format = "{icon} {volume:2}%";
-          format-bluetooth = "{icon}  {volume}%";
-          format-muted = "MUTE";
+          format-muted = " ";
           format-icons = {
             headphones = "";
             default = [
@@ -73,8 +72,17 @@
           };
           scroll-step = 5;
           on-click = "pamixer -t";
-          on-click-right = "pavucontrol";
+          on-click-right = "kitty pulsemixer";
           tooltip = false;
+        };
+
+        "bluetooth" = {
+          format-on = "󰂯";
+          format-off = "󰂲";
+          format-disabled = "";
+          format-connected-battery = "󰂯 󰁹 {device_battery_percentage}%";
+          on-click = "bluetoothctl power $(bluetoothctl show | grep -q 'Powered: yes' && echo off || echo on)";
+          on-click-right = "kitty bluetui";
         };
 
         "memory" = {
@@ -175,8 +183,12 @@
         border: @surface0;
       }
 
-      #pulseaudio {
+      #bluetooth {
         color: @blue;
+      }
+
+      #pulseaudio {
+        color: @teal;
       }
 
       #memory {
@@ -192,6 +204,7 @@
       }
 
       #pulseaudio,
+      #bluetooth,
       #memory,
       #cpu,
       #battery,
@@ -208,6 +221,7 @@
       #custom-lock,
       #custom-quit {
         padding: 0 10px;
+        color: @red;
       }
     '';
   };
