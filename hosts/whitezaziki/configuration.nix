@@ -14,8 +14,8 @@
     ];
 
     # Hyprland binary cache
-    substituters = ["https://hyprland.cachix.org"];
-    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+    substituters = [ "https://hyprland.cachix.org" ];
+    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
   };
 
   # Bootloader and EFI
@@ -32,8 +32,10 @@
     };
   };
   programs.nix-ld.enable = true;
+
   # Host & Networking
   networking = {
+    enableIPv6 = false;
     hostName = "whitezaziki";
     networkmanager.enable = true;
     firewall = {
@@ -84,6 +86,18 @@
       "networkmanager"
       "kvm"
     ];
+  };
+
+  services.openvpn.servers = {
+    nordvpn = {
+      autoStart = false;
+      authUserPass = {
+        username = "PJmQUJZrn1csoQYDzjPgKJSh";
+        password = "TnWfUxLkzKQzH5oopphM6LKP";
+      };
+      config = "config /home/andreas/downloads/at89.nordvpn.com.tcp.ovpn";
+      updateResolvConf = true;
+    };
   };
 
   services.xserver.enable = true;

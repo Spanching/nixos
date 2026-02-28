@@ -23,6 +23,7 @@
           "clock#1"
         ];
         modules-right = [
+          "custom/vpn"
           "bluetooth"
           "pulseaudio"
           "cpu"
@@ -50,9 +51,19 @@
           };
         };
 
+        "custom/vpn" = {
+          "interval" = 3;
+          "format" = "{}";
+          "tooltip" = false;
+          "exec" = "ip add show | grep -qF tun0 && echo \"󰦝 \"  || echo \" \"";
+          "max-length" = "100";
+          "on-click" = "sudo systemctl start openvpn-nordvpn.service";
+          "on-click-right" = "sudo systemctl stop openvpn-nordvpn.service";
+        };
+
         "hyprland/window" = {
-          format = "{class}";
-          # format = "{class} {title}"; # Use for debugging and window-rewrite
+          # format = "{class}";
+          format = "{class} {title}"; # Use for debugging and window-rewrite
         };
 
         "clock#1" = {

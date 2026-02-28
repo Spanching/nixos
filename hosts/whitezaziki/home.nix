@@ -28,6 +28,7 @@
     pulsemixer
     pamixer
     # jellyfin-media-player depends on vulerable version of qtbrowser
+    prismlauncher
   ];
 
   
@@ -97,6 +98,8 @@
       ndc = "nix develop --command";
       ndi = "nix develop --command idea";
       nda = "nix develop --command android-studio";
+      vpnup = "sudo systemctl start openvpn-nordvpn.service";
+      vpndown = "sudo systemctl stop openvpn-nordvpn.service";
     };
   };
 

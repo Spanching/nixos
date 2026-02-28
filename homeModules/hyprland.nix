@@ -23,6 +23,10 @@
         preserve_split = true;
       };
 
+      cursor = {
+        no_warps = true;
+      };
+
       general = {
         gaps_in = 3;
         gaps_out = 6;
@@ -60,6 +64,7 @@
         repeat_delay = 300;
         numlock_by_default = false;
         kb_options = "caps:escape";
+        follow_mouse = 1;
       };
 
       # Startup applications
@@ -201,7 +206,8 @@
 
         "$mod, G, togglegroup"
 
-        "$mod, E, exec, bemoji -n"
+        "$mod SHIFT, E, exec, bemoji -n"
+        "$mod, E, exec, kitty -e yazi"
 
         # Workspace overview (Hyprexpo plugin)
         # "$mod, Tab, hyprexpo:expo, toggle"
@@ -315,6 +321,9 @@
 
       windowrule = [
         "match:class ^(org.pulseaudio.pavucontrol)$, float on, size 800 600, center on"
+        "focus_on_activate 1, match:class (jetbrains-.*), match:title (win.*), match:initial_title (win.*), match:float 1"
+        "stay_focused 1, float 1, focus_on_activate 1, match:class ^(jetbrains-.*)$, match:title (^$)"
+        "focus_on_activate 1, match:class ^(jetbrains-.*)$, match:title (.+)"
       ];
 
       # Master layout settings
