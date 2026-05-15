@@ -88,6 +88,10 @@
     ];
   };
 
+  services.tailscale = {
+    enable = true;
+  };
+
   services.openvpn.servers = {
     nordvpn = {
       autoStart = false;
@@ -156,6 +160,12 @@
     kitty
     solaar
     nvidia-container-toolkit
+    libnotify
+    glib
+    unzip
+    kdePackages.dolphin
+    fd
+    ripgrep
   ];
 
   # Required for xdg-desktop-portal with home-manager

@@ -10,8 +10,10 @@
     settings = {
       "$mod" = "SUPER";
       monitor = [
-        "HDMI-A-2,2560x1080@60,0x0,1"
-        "HDMI-A-3,1440x900@60,560x-900,1"
+        "HDMI-A-2,2560x1080@60,0x0,1" # Ultrawide
+        "HDMI-A-3,1440x900@60,560x-900,1" # Small top
+        "HDMI-A-1,disable" # TV
+        ", preferred, auto, 1"
       ];
 
       debug = {
@@ -369,6 +371,7 @@
         "~/.config/background.jpeg"
       ];
       wallpaper = [
+        "HDMI-A-1,~/.config/background.jpeg"
         "HDMI-A-2,~/.config/background.jpeg"
         "HDMI-A-3,~/.config/background.jpeg"
       ];

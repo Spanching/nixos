@@ -15,7 +15,6 @@
     docker-compose
     firefox
     vscode-langservers-extracted
-    claude-code
     spotify
     discord
     mpv
@@ -29,9 +28,19 @@
     pamixer
     # jellyfin-media-player depends on vulerable version of qtbrowser
     prismlauncher
+    cura-appimage
+    keepass
+    heroic
+    openscad-unstable
+    (pkgs.runCommand "orca-slicer-wrapped" { buildInputs = [ pkgs.makeWrapper ]; } ''
+      makeWrapper ${pkgs.orca-slicer}/bin/orca-slicer $out/bin/orca-slicer \
+        --set __GLX_VENDOR_LIBRARY_NAME mesa \
+        --set __EGL_VENDOR_LIBRARY_FILENAMES /run/opengl-driver/share/glvnd/egl_vendor.d/50_mesa.json \
+        --set MESA_LOADER_DRIVER_OVERRIDE zink \
+        --set GALLIUM_DRIVER zink \
+        --set WEBKIT_DISABLE_DMABUF_RENDERER 1
+    '')
   ];
-
-  
 
   services.flameshot = {
     enable = true;
@@ -100,6 +109,8 @@
       nda = "nix develop --command android-studio";
       vpnup = "sudo systemctl start openvpn-nordvpn.service";
       vpndown = "sudo systemctl stop openvpn-nordvpn.service";
+      tvup = "hyprctl keyword monitor HDMI-A-1,3840x2160@60,-1280x0,3";
+      tvdown = "hyprctl keyword monitor HDMI-A-1,disable";
     };
   };
 

@@ -62,8 +62,8 @@
         };
 
         "hyprland/window" = {
-          # format = "{class}";
-          format = "{class} {title}"; # Use for debugging and window-rewrite
+          format = "{class}";
+          # format = "{class} {title}"; # Use for debugging and window-rewrite
         };
 
         "clock#1" = {
