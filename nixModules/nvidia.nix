@@ -1,16 +1,16 @@
-{ ... }:
+{ config, ... }:
 
 {
   nixpkgs.config.allowUnfree = true;
 
   hardware.graphics.enable = true;
-  hardware.opengl.enable = true;
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
     modesetting.enable = true;
-    powerManagement.enable = false;
+    powerManagement.enable = true;
     powerManagement.finegrained = false;
     open = false;
     nvidiaSettings = false;

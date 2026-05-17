@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
@@ -108,33 +108,49 @@
   hardware.bluetooth.enable = true;
 
   services.hardware.openrgb = {
-    enable = true;
+    enable = false;
     motherboard = "amd";
     package = pkgs.openrgb.overrideAttrs (old: {
       src = pkgs.fetchFromGitLab {
         owner = "CalcProgrammer1";
         repo = "OpenRGB";
         rev = "release_candidate_1.0rc2";
-        sha256 = "sha256-jKAKdja2Q8FldgnRqOdFSnr1XHCC8eC6WeIUv83e7x4=";
+        sha256 = "sha256-vdIA9i1ewcrfX5U7FkcRR+ISdH5uRi9fz9YU5IkPKJQ=";
       };
       patches = [ ];
 
       # Override the postPatch phase to handle the newer source structure
-      postPatch = ''
-        patchShebangs scripts/build-udev-rules.sh
-
-        # Only substitute if the pattern exists
-        substituteInPlace scripts/build-udev-rules.sh \
-          --replace-quiet '/bin/chmod' '${pkgs.coreutils}/bin/chmod' || true
-      '';
-      postInstall = ''
-        ${old.postInstall or ""}
-        # Fix any /usr/bin/env references in the generated udev rules
-        substituteInPlace $out/lib/udev/rules.d/*.rules \
-          --replace-quiet '/usr/bin/env' '${pkgs.coreutils}/bin/env' || true
-      '';
+      # postPatch = ''
+      #   patchShebangs scripts/build-udev-rules.sh
+      #
+      #   # Only substitute if the pattern exists
+      #   substituteInPlace scripts/build-udev-rules.sh \
+      #     --replace-quiet '/bin/chmod' '${pkgs.coreutils}/bin/chmod' || true
+      # '';
+      # postInstall = ''
+      #   ${old.postInstall or ""}
+      #   # Fix any /usr/bin/env references in the generated udev rules
+      #   substituteInPlace $out/lib/udev/rules.d/*.rules \
+      #     --replace-quiet '/usr/bin/env' '${pkgs.coreutils}/bin/env' || true
+      # '';
     });
   };
+
+  # Spin down HDD after 3-4m of inactivity
+  services.udev.extraRules =
+    let
+      mkRule = as: lib.concatStringsSep ", " as;
+      mkRules = rs: lib.concatStringsSep "\n" rs;
+    in
+    mkRules ([
+      (mkRule [
+        ''ACTION=="add|change"''
+        ''SUBSYSTEM=="block"''
+        ''KERNEL=="sd[a-z]"''
+        ''ATTR{queue/rotational}=="1"''
+        ''RUN+="${pkgs.hdparm}/bin/hdparm -B 90 -S 41 /dev/%k"''
+      ])
+    ]);
 
   hardware.logitech.wireless.enable = true;
 

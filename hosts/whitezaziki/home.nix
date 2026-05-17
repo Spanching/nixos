@@ -28,18 +28,21 @@
     pamixer
     # jellyfin-media-player depends on vulerable version of qtbrowser
     prismlauncher
-    cura-appimage
     keepass
     heroic
     openscad-unstable
     (pkgs.runCommand "orca-slicer-wrapped" { buildInputs = [ pkgs.makeWrapper ]; } ''
       makeWrapper ${pkgs.orca-slicer}/bin/orca-slicer $out/bin/orca-slicer \
-        --set __GLX_VENDOR_LIBRARY_NAME mesa \
-        --set __EGL_VENDOR_LIBRARY_FILENAMES /run/opengl-driver/share/glvnd/egl_vendor.d/50_mesa.json \
-        --set MESA_LOADER_DRIVER_OVERRIDE zink \
-        --set GALLIUM_DRIVER zink \
-        --set WEBKIT_DISABLE_DMABUF_RENDERER 1
+        --set __GLX_VENDOR_LIBRARY_NAME nvidia \
+        --set __EGL_VENDOR_LIBRARY_FILENAMES /run/opengl-driver/share/glvnd/egl_vendor.d/10_nvidia.json \
+        --prefix LD_LIBRARY_PATH : /run/opengl-driver/lib \
+        --set FC_DEBUG 1 \
+        --set GDK_BACKEND x11 \
+        --set ORCA_SLICER_SINGLE_CONTEXT 1 \
+        --unset MESA_LOADER_DRIVER_OVERRIDE \
+        --unset GALLIUM_DRIVER
     '')
+    # orca-slicer
   ];
 
   services.flameshot = {

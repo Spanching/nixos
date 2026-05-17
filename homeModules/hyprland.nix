@@ -5,7 +5,7 @@
     enable = true;
     # package is now provided by hyprland.homeManagerModules.default
     plugins = [
-      hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
+      # hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
     ];
     settings = {
       "$mod" = "SUPER";
@@ -49,12 +49,11 @@
         dim_special = 0.0;
       };
 
-      blurls = [];
+      blurls = [ ];
 
       misc = {
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
-        vfr = true;
         vrr = 1;
       };
 
@@ -446,19 +445,23 @@
     settings = {
       general = {
         lock_cmd = "pidof hyprlock || hyprlock";
-        before_sleep_cmd = "loginctl lock-session";
-        after_sleep_cmd = "hyprctl dispatch dpms on";
+        before_sleep_cmd = "pidof hyprlock || hyprlock";
+        after_sleep_cmd = "sleep 2 && hyprctl dispatch dpms on";
       };
 
       listener = [
         {
           timeout = 300;
-          on-timeout = "hyprlock";
+          on-timeout = "pidof hyprlock || hyprlock";
         }
         {
           timeout = 600;
           on-timeout = "hyprctl dispatch dpms off";
           on-resume = "hyprctl dispatch dpms on";
+        }
+        {
+          timeout = 900;
+          on-timeout = "systemctl suspend";
         }
       ];
     };

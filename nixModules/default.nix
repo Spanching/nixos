@@ -7,5 +7,6 @@
     ./font.nix
     ./docker.nix
     ./greetd.nix
+    ./suspend.nix
   ];
 }

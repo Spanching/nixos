@@ -1,11 +1,13 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
-  services.greetd.enable = true;
-  services.greetd.settings = {
-    default_session = {
-      command = "start-hyprland";
-      user = "andreas";
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd start-hyprland";
+        user = "greeter";
+      };
     };
   };
 }
