@@ -321,6 +321,7 @@
       ];
 
       windowrule = [
+        "match:class ^(openscad)$, match:title ((3D Print|Welcome).*), float on, size 800 600, center on"
         "match:class ^(org.pulseaudio.pavucontrol)$, float on, size 800 600, center on"
         "focus_on_activate 1, match:class (jetbrains-.*), match:title (win.*), match:initial_title (win.*), match:float 1"
         "stay_focused 1, float 1, focus_on_activate 1, match:class ^(jetbrains-.*)$, match:title (^$)"

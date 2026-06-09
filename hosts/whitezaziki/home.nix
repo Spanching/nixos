@@ -42,8 +42,34 @@
         --unset MESA_LOADER_DRIVER_OVERRIDE \
         --unset GALLIUM_DRIVER
     '')
-    # orca-slicer
+    arduino-ide
   ];
+
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "application/pdf" = "firefox.desktop";
+      "application/x-extension-htm" = "firefox.desktop";
+      "application/x-extension-html" = "firefox.desktop";
+      "application/x-extension-shtml" = "firefox.desktop";
+      "application/x-extension-xht" = "firefox.desktop";
+      "application/x-extension-xhtml" = "firefox.desktop";
+      "application/xhtml+xml" = "firefox.desktop";
+      "image/jpeg" = "eog.desktop;";
+      "image/png" = "eog-3.desktop;";
+      "model/3mf" = "orca-slicer-3.desktop;";
+      "model/stl" = "orca-slicer-4.desktop;";
+      "text/html" = "firefox.desktop";
+      "text/plain" = "nvim-2.desktop;";
+      "video/mp4" = "mpv-3.desktop;";
+      "x-scheme-handler/bruno" = "bruno.desktop";
+      "x-scheme-handler/chrome" = "firefox.desktop";
+      "x-scheme-handler/claude-cli" = "claude-code-url-handler.desktop";
+      "x-scheme-handler/http" = "firefox.desktop";
+      "x-scheme-handler/https" = "firefox.desktop";
+      "x-scheme-handler/stabilitymatrix" = "stabilitymatrix.desktop";
+    };
+  };
 
   services.flameshot = {
     enable = true;

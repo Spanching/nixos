@@ -85,7 +85,15 @@
       "wheel"
       "networkmanager"
       "kvm"
+      "dialout"
+      "tty"
     ];
+  };
+
+  programs.weylus = {
+    enable = true;
+    openFirewall = true;
+    users = [ "andreas" ];
   };
 
   services.tailscale = {
@@ -179,9 +187,9 @@
     libnotify
     glib
     unzip
-    kdePackages.dolphin
     fd
     ripgrep
+    eog
   ];
 
   # Required for xdg-desktop-portal with home-manager

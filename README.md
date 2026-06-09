@@ -10,7 +10,6 @@
 |----------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `Super+Shift Return`                         | Spawn **Alacritty** terminal.                                                                                                                                         |
 | `Super D`                                    | Spawn **wofi** launcher (with `--show run` to show the run dialog).                                                                                                  |
-| `Super+Alt Return`                           | Spawn **Foot** terminal.                                                                                                                                              |
 | `Super Q`                                    | Close the focused view.                                                                                                                                               |
 | `Super+Shift E`                              | Exit the session.                                                                                                                                                     |
 | `Super J`                                    | Focus the next view in the layout stack.                                                                                                                             |
