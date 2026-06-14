@@ -90,12 +90,6 @@
     ];
   };
 
-  programs.weylus = {
-    enable = true;
-    openFirewall = true;
-    users = [ "andreas" ];
-  };
-
   services.tailscale = {
     enable = true;
   };
@@ -187,6 +181,7 @@
     libnotify
     glib
     unzip
+    zip
     fd
     ripgrep
     eog
@@ -196,6 +191,7 @@
   environment.pathsToLink = [
     "/share/applications"
     "/share/xdg-desktop-portal"
+    "/share/thumbnailers"
   ];
 
   # Security

@@ -51,6 +51,10 @@
 
       blurls = [ ];
 
+      device = {
+        name = "weylus-stylus";
+        output = "HDMI-A-2";
+      };
       misc = {
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
@@ -110,16 +114,18 @@
         # Terminal spawning
         "$mod, Return, exec, kitty"
         "$mod CTRL, Return, exec, fish"
+        "ALT, SPACE, exec, kitty --class=\"floating-search\" -e sh -c \"fd --type f --hidden --exclude .git | fzf --layout=reverse | xargs -r xdg-open\""
 
         # Application launcher
         "$mod, D, exec, wofi --show run"
-        "$mod, Q, exec, qutebrowser"
         "$mod, Y, exec, firefox"
 
         # Window management
         "$mod, W, killactive"
         "$mod SHIFT, Q, exit"
         "$mod, Escape, exec, hyprlock"
+        "$mod SHIFT, E, exec, bemoji -n"
+        "$mod, E, exec, nautilus"
 
         # Focus navigation (vim keys)
         "$mod, H, movefocus, l"
@@ -206,9 +212,6 @@
         "$mod, V, exec, cliphist list | wofi -j -S dmenu | cliphist decode | wl-copy"
 
         "$mod, G, togglegroup"
-
-        "$mod SHIFT, E, exec, bemoji -n"
-        "$mod, E, exec, kitty -e yazi"
 
         # Workspace overview (Hyprexpo plugin)
         # "$mod, Tab, hyprexpo:expo, toggle"
@@ -321,6 +324,8 @@
       ];
 
       windowrule = [
+        "match:class ^(floating-search)$, float on, size 800 600, center on"
+
         "match:class ^(openscad)$, match:title ((3D Print|Welcome).*), float on, size 800 600, center on"
         "match:class ^(org.pulseaudio.pavucontrol)$, float on, size 800 600, center on"
         "focus_on_activate 1, match:class (jetbrains-.*), match:title (win.*), match:initial_title (win.*), match:float 1"
