@@ -11,6 +11,7 @@
           ms-azuretools.vscode-docker
           ms-vscode-remote.remote-ssh
           ms-toolsai.jupyter
+          ms-python.debugpy
         ]
         ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
           {

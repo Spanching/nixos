@@ -68,6 +68,7 @@
 
   catppuccin = {
     enable = true;
+    autoEnable = true;
     flavor = "frappe";
   };
 
@@ -94,6 +95,8 @@
     enable = true;
   };
 
+  programs.dconf.enable = true;
+
   services.openvpn.servers = {
     nordvpn = {
       autoStart = false;
@@ -101,7 +104,7 @@
         username = "PJmQUJZrn1csoQYDzjPgKJSh";
         password = "TnWfUxLkzKQzH5oopphM6LKP";
       };
-      config = "config /home/andreas/downloads/at89.nordvpn.com.tcp.ovpn";
+      config = "config /home/andreas/Downloads/at89.nordvpn.com.tcp.ovpn";
       updateResolvConf = true;
     };
   };
@@ -110,33 +113,12 @@
   hardware.bluetooth.enable = true;
 
   services.hardware.openrgb = {
-    enable = false;
+    enable = true;
     motherboard = "amd";
-    package = pkgs.openrgb.overrideAttrs (old: {
-      src = pkgs.fetchFromGitLab {
-        owner = "CalcProgrammer1";
-        repo = "OpenRGB";
-        rev = "release_candidate_1.0rc2";
-        sha256 = "sha256-vdIA9i1ewcrfX5U7FkcRR+ISdH5uRi9fz9YU5IkPKJQ=";
-      };
-      patches = [ ];
-
-      # Override the postPatch phase to handle the newer source structure
-      # postPatch = ''
-      #   patchShebangs scripts/build-udev-rules.sh
-      #
-      #   # Only substitute if the pattern exists
-      #   substituteInPlace scripts/build-udev-rules.sh \
-      #     --replace-quiet '/bin/chmod' '${pkgs.coreutils}/bin/chmod' || true
-      # '';
-      # postInstall = ''
-      #   ${old.postInstall or ""}
-      #   # Fix any /usr/bin/env references in the generated udev rules
-      #   substituteInPlace $out/lib/udev/rules.d/*.rules \
-      #     --replace-quiet '/usr/bin/env' '${pkgs.coreutils}/bin/env' || true
-      # '';
-    });
   };
+
+  # programs.xfconf.enable = true;
+  services.tumbler.enable = true;
 
   # Spin down HDD after 3-4m of inactivity
   services.udev.extraRules =

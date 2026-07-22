@@ -8,6 +8,6 @@
     ./docker.nix
     ./greetd.nix
     ./suspend.nix
-    ./dolphin.nix
+    ./nemo.nix
   ];
 }

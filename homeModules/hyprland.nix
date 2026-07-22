@@ -3,12 +3,16 @@
 {
   wayland.windowManager.hyprland = {
     enable = true;
+    configType = "hyprlang";
     # package is now provided by hyprland.homeManagerModules.default
-    plugins = [
-      # hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
-    ];
+    plugins = [ ];
     settings = {
       "$mod" = "SUPER";
+
+      modeline = [
+        "HDMI-A-2,2560x1080_60.00, 230.00, 2560, 2720, 2992, 3424, 1080, 1083, 1093, 1120, -hsync, +vsync"
+      ];
+
       monitor = [
         "HDMI-A-2,2560x1080@60,0x0,1" # Ultrawide
         "HDMI-A-3,1440x900@60,560x-900,1" # Small top
@@ -122,10 +126,11 @@
 
         # Window management
         "$mod, W, killactive"
+        "$mod SHIFT, W, forcekillactive"
         "$mod SHIFT, Q, exit"
         "$mod, Escape, exec, hyprlock"
         "$mod SHIFT, E, exec, bemoji -n"
-        "$mod, E, exec, nautilus"
+        "$mod, E, exec, dolphin"
 
         # Focus navigation (vim keys)
         "$mod, H, movefocus, l"
@@ -372,15 +377,13 @@
   services.hyprpaper = {
     enable = true;
     settings = {
-      preload = [
-        "~/.config/background.jpeg"
-      ];
-      wallpaper = [
-        "HDMI-A-1,~/.config/background.jpeg"
-        "HDMI-A-2,~/.config/background.jpeg"
-        "HDMI-A-3,~/.config/background.jpeg"
-      ];
       splash = false;
+      wallpaper = [
+        {
+          monitor = "";
+          path = "~/.config/background.jpeg";
+        }
+      ];
     };
   };
 
