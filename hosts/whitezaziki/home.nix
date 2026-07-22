@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   home.username = "andreas";
@@ -10,6 +10,20 @@
   imports = [
     ./../../homeModules
   ];
+
+  programs.zen-browser = {
+    enable = true;
+
+    profiles.default = {
+      settings = {
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+        "layout.css.prefers-color-scheme.content-override" = 0;  # 0 = dark
+      };
+
+      userChrome = builtins.readFile "${inputs.catppuccin-zen}/themes/Frappe/Blue/userChrome.css";
+      userContent = builtins.readFile "${inputs.catppuccin-zen}/themes/Frappe/Blue/userContent.css";
+    };
+  };
 
   home.packages = with pkgs; [
     docker-compose
@@ -26,7 +40,7 @@
     yt-dlp
     pulsemixer
     pamixer
-    # jellyfin-media-player depends on vulerable version of qtbrowser
+    jellyfin-media-player # depends on vulerable version of qtbrowser
     prismlauncher
     keepass
     heroic
