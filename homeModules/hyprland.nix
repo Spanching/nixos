@@ -130,7 +130,7 @@
         "$mod SHIFT, Q, exit"
         "$mod, Escape, exec, hyprlock"
         "$mod SHIFT, E, exec, bemoji -n"
-        "$mod, E, exec, dolphin"
+        "$mod, E, exec, nemo"
 
         # Focus navigation (vim keys)
         "$mod, H, movefocus, l"
