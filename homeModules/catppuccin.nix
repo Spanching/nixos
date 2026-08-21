@@ -29,5 +29,9 @@
     };
   };
 
-  home.sessionVariables.GTK_THEME = "catppuccin-frappe-blue-stanar";
+  home.sessionVariables = {
+    GTK_THEME = "catppuccin-frappe-blue-standard";
+    QT_QPA_PLATFORMTHEME = "qt6ct";
+    QT_STYLE_OVERRIDE = "kvantum";
+  };
 }

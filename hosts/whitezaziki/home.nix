@@ -11,13 +11,15 @@
     ./../../homeModules
   ];
 
+  dconf.enable = true;
+
   programs.zen-browser = {
     enable = true;
 
     profiles.default = {
       settings = {
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-        "layout.css.prefers-color-scheme.content-override" = 0;  # 0 = dark
+        "layout.css.prefers-color-scheme.content-override" = 0; # 0 = dark
       };
 
       userChrome = builtins.readFile "${inputs.catppuccin-zen}/themes/Frappe/Blue/userChrome.css";
@@ -44,8 +46,7 @@
     prismlauncher
     keepass
     heroic
-    # openscad-unstable
-    openscad
+    inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.openscad-unstable
     (pkgs.runCommand "orca-slicer-wrapped" { buildInputs = [ pkgs.makeWrapper ]; } ''
       makeWrapper ${pkgs.orca-slicer}/bin/orca-slicer $out/bin/orca-slicer \
         --set __GLX_VENDOR_LIBRARY_NAME nvidia \
@@ -58,36 +59,25 @@
         --unset GALLIUM_DRIVER
     '')
     arduino-ide
+    inputs.focus-action.packages.x86_64-linux.default
+    inputs.mouse-action.packages.x86_64-linux.default
+
+    (catppuccin-kvantum.override {
+      accent = "blue"; # any Catppuccin accent
+      variant = "frappe"; # Latte, Frappe, Macchiato, Mocha
+    })
+    libsForQt5.qtstyleplugin-kvantum
+    libsForQt5.qt5ct
+    qt6Packages.qtstyleplugin-kvantum # if your openscad is Qt6
+    qt6Packages.qt6ct
+    wtype
   ];
 
+  qt.enable = true;
+  qt.platformTheme.name = "qt6ct";
+  qt.style.name = "kvantum";
+
   home.pointerCursor.enable = true;
-
-  # xdg.mimeApps = {
-  #   enable = true;
-  #   defaultApplications = {
-  #     "application/pdf" = "firefox.desktop";
-  #     "application/x-extension-htm" = "firefox.desktop";
-  #     "application/x-extension-html" = "firefox.desktop";
-  #     "application/x-extension-shtml" = "firefox.desktop";
-  #     "application/x-extension-xht" = "firefox.desktop";
-  #     "application/x-extension-xhtml" = "firefox.desktop";
-  #     "application/xhtml+xml" = "firefox.desktop";
-  #     "image/jpeg" = "eog.desktop;";
-  #     "image/png" = "eog-3.desktop;";
-  #     "model/3mf" = "orca-slicer-3.desktop;";
-  #     "model/stl" = "orca-slicer-4.desktop;";
-  #     "text/html" = "firefox.desktop";
-  #     "text/plain" = "nvim-2.desktop;";
-  #     "video/mp4" = "mpv-3.desktop;";
-  #     "x-scheme-handler/bruno" = "bruno.desktop";
-  #     "x-scheme-handler/chrome" = "firefox.desktop";
-  #     "x-scheme-handler/claude-cli" = "claude-code-url-handler.desktop";
-  #     "x-scheme-handler/http" = "firefox.desktop";
-  #     "x-scheme-handler/https" = "firefox.desktop";
-  #     "x-scheme-handler/stabilitymatrix" = "stabilitymatrix.desktop";
-  #   };
-  # };
-
   services.flameshot = {
     enable = true;
     settings = {
@@ -155,6 +145,8 @@
       nda = "nix develop --command android-studio";
       vpnup = "sudo systemctl start openvpn-nordvpn.service";
       vpndown = "sudo systemctl stop openvpn-nordvpn.service";
+      topup = "hyprctl keyword monitor HDMI-A-3,1440x900@60,560x-900,1";
+      topdown = "hyprctl keyword monitor HDMI-A-3,disable";
       tvup = "hyprctl keyword monitor HDMI-A-1,3840x2160@60,-1280x0,3";
       tvdown = "hyprctl keyword monitor HDMI-A-1,disable";
     };

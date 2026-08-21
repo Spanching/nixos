@@ -32,6 +32,7 @@
     lua-language-server
     nil
     vscode-langservers-extracted
+    openscad-lsp
     gopls
     tree-sitter
     gcc

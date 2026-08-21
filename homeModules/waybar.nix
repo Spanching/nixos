@@ -42,12 +42,14 @@
           window-rewrite-default = " ";
           window-rewrite = {
             "class<.*firefox.*>" = " ";
+            "class<.*zen.*>" = " ";
             "class<.*kitty.*>" = " ";
             "class<.*discord.*>" = " ";
             "class<.*spotify.*>" = " ";
             "class<.*steam.*>" = " ";
             "class<.*qutebrowser.*>" = " ";
             "title<.*youtube.*>" = " ";
+            "class<.*openscad.*>" = " ";
           };
         };
 
@@ -62,8 +64,8 @@
         };
 
         "hyprland/window" = {
-          # format = "{class}";
-          format = "{class} {title}"; # Use for debugging and window-rewrite
+          format = "{class}";
+          # format = "class: {class}, title: {title}"; # Use for debugging and window-rewrite
         };
 
         "clock#1" = {

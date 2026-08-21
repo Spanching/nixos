@@ -27,7 +27,7 @@
   fileSystems."/data" =
     { device = "/dev/disk/by-uuid/A43AF2E13AF2AF82";
       fsType = "ntfs";
-      options = [ "nofail" ];
+      # options = [ "nofail" ]; # Important option, just set in samba.nix not possible otherwise
     };
 
   swapDevices =

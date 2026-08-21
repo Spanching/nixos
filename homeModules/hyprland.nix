@@ -8,6 +8,7 @@
     plugins = [ ];
     settings = {
       "$mod" = "SUPER";
+      "$browser" = "zen-beta";
 
       modeline = [
         "HDMI-A-2,2560x1080_60.00, 230.00, 2560, 2720, 2992, 3424, 1080, 1083, 1093, 1120, -hsync, +vsync"
@@ -122,7 +123,7 @@
 
         # Application launcher
         "$mod, D, exec, wofi --show run"
-        "$mod, Y, exec, firefox"
+        "$mod, Y, exec, zen-beta"
 
         # Window management
         "$mod, W, killactive"
@@ -185,6 +186,7 @@
         # Set Master to around 16:9
         "$mod, O, layoutmsg, mfact exact 0.76"
         "$mod, I, layoutmsg, mfact exact 0.5"
+        "$mod, U, layoutmsg, mfact exact 0.66"
 
         # Toggle float
         "$mod, T, togglefloating"
@@ -288,35 +290,15 @@
       bindc = [
         "$mod, mouse:274, togglefloating"
 
-        ", mouse:276, exec, playerctl play-pause" # side thumb
+        # ", mouse:276, exec, playerctl play-pause" # side thumb
+        ", mouse:276, exec, holdclick-toggle" # side thumb
 
-        ''
-          , mouse:281, exec, ~/.local/bin/focus_action.sh \
-                    "firefox" \
-                    "hyprctl dispatch sendshortcut CTRL SHIFT, t, activewindow" \
-                    "hyprctl dispatch cyclenext prev"
-        '' # top front
-
-        ''
-          , mouse:282, exec, ~/.local/bin/focus_action.sh \
-                    "firefox" \
-                    "hyprctl dispatch sendshortcut CTRL, w, activewindow" \
-                    "hyprctl dispatch cyclenext"
-        '' # top back
-
-        ''
-          , mouse:277, exec, ~/.local/bin/focus_action.sh \
-                    "firefox" \
-                    "hyprctl dispatch sendshortcut CTRL, TAB, activewindow" \
-                    "hyprctl dispatch workspace +1"
-        '' # side front
-
-        ''
-          , mouse:275, exec, ~/.local/bin/focus_action.sh \
-                    "firefox" \
-                    "hyprctl dispatch sendshortcut CTRL SHIFT, TAB, activewindow" \
-                    "hyprctl dispatch workspace -1"
-        '' # side back
+        # Firefox
+        " , mouse:281, exec, focus-action mouse-top-front"
+        " , mouse:282, exec, focus-action mouse-top-back"
+        " , mouse:276, exec, focus-action mouse-side-thumb"
+        " , mouse:277, exec, focus-action mouse-side-front"
+        " , mouse:275, exec, focus-action mouse-side-back"
 
         "$mod, mouse:275, togglefloating" # side back
         "$mod, mouse:276, togglefloating" # side thumb
@@ -340,7 +322,7 @@
 
       # Master layout settings
       master = {
-        new_status = "master";
+        new_status = "slave";
         new_on_top = false;
         orientation = "left";
         mfact = 0.5;

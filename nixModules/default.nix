@@ -16,5 +16,6 @@
     ./hardware.nix
     ./gaming.nix
     ./catppuccin.nix
+    ./samba.nix
   ];
 }

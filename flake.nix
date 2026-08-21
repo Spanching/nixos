@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/release-26.05";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -14,6 +15,12 @@
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    focus-action.url = "path:/home/andreas/Projects/flakes/focus-action";
+    mouse-action = {
+      url = "path:/home/andreas/Projects/flakes/mouse-action";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     catppuccin-zen = {
       url = "github:catppuccin/zen-browser";
       flake = false;
@@ -23,10 +30,12 @@
   outputs =
     inputs@{
       nixpkgs,
+      nixpkgs-stable,
       catppuccin,
       home-manager,
       hyprland,
       zen-browser,
+      focus-action,
       ...
     }:
     {
@@ -48,7 +57,7 @@
                 ./hosts/whitezaziki/home.nix
                 catppuccin.homeModules.catppuccin
                 hyprland.homeManagerModules.default
-                zen-browser.homeModules.beta # <- add this
+                zen-browser.homeModules.beta
               ];
             };
           }

@@ -31,42 +31,50 @@
   users.users.andreas = {
     isNormalUser = true;
     extraGroups = [
+      "adbusers"
       "docker"
       "wheel"
       "networkmanager"
       "kvm"
       "dialout"
       "tty"
+      "ctbackup"
+      "ydotool"
     ];
   };
+
+  programs.ydotool.enable = true;
 
   # Security
   security.sudo.enable = true;
   security.sudo.wheelNeedsPassword = true;
 
-  environment.systemPackages = with pkgs; [
-    git
-    tmux
-    htop
-    ctop
-    wofi
-    wl-clipboard
-    wlroots
-    xwayland
-    wlr-randr
-    wget
-    docker
-    kitty
-    solaar
-    nvidia-container-toolkit
-    libnotify
-    glib
-    unzip
-    zip
-    fd
-    ripgrep
-    eog
-  ];
+  environment.systemPackages =
+    with pkgs;
+    [
+      git
+      tmux
+      htop
+      ctop
+      wofi
+      wl-clipboard
+      wlroots
+      xwayland
+      wlr-randr
+      wget
+      docker
+      kitty
+      solaar
+      nvidia-container-toolkit
+      libnotify
+      glib
+      unzip
+      zip
+      fd
+      ripgrep
+      eog
+      ydotool
+    ];
 
   # Required for xdg-desktop-portal with home-manager
   environment.pathsToLink = [

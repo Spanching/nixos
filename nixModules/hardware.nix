@@ -4,6 +4,8 @@
   hardware.bluetooth.enable = true;
   hardware.logitech.wireless.enable = true;
 
+  hardware.opentabletdriver.enable = true;
+
   services.udisks2.enable = true;
 
   # Spin down HDD after 3-4m of inactivity
