@@ -80,7 +80,7 @@
             headphones = "";
             default = [
               " "
-              " "
+              "  "
             ];
           };
           scroll-step = 5;

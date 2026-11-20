@@ -7,6 +7,9 @@
   hardware.graphics.extraPackages = with pkgs; [
     nvidia-vaapi-driver
   ];
+
+  hardware.nvidia-container-toolkit.enable = true;
+
   hardware.nvidia.prime = {
     offload.enable = true;
     # you'll need to fill these in from lspci

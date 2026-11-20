@@ -15,5 +15,6 @@
     ./vscode.nix
     ./obs.nix
     ./screenshot.nix
+    ./gtk.nix
   ];
 }

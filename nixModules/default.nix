@@ -17,5 +17,6 @@
     ./gaming.nix
     ./catppuccin.nix
     ./samba.nix
+    ./shutoff.nix
   ];
 }

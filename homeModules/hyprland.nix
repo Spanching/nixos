@@ -4,7 +4,6 @@
   wayland.windowManager.hyprland = {
     enable = true;
     configType = "hyprlang";
-    # package is now provided by hyprland.homeManagerModules.default
     plugins = [ ];
     settings = {
       "$mod" = "SUPER";
@@ -132,6 +131,7 @@
         "$mod, Escape, exec, hyprlock"
         "$mod SHIFT, E, exec, bemoji -n"
         "$mod, E, exec, nemo"
+        "$mod, R, exec, kitty -e yazi"
 
         # Focus navigation (vim keys)
         "$mod, H, movefocus, l"
@@ -448,7 +448,7 @@
         {
           timeout = 600;
           on-timeout = "hyprctl dispatch dpms off";
-          on-resume = "hyprctl dispatch dpms on";
+          on-resume = "hyprctl dispatch dpms on ; openrgb -p default ; pkill -SIGUSR2 waybar";
         }
         {
           timeout = 900;

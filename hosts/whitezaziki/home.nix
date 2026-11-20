@@ -1,4 +1,8 @@
-{ inputs, pkgs, ... }:
+{
+  inputs,
+  pkgs,
+  ...
+}:
 
 {
   home.username = "andreas";
@@ -12,6 +16,21 @@
   ];
 
   dconf.enable = true;
+  dconf.settings = {
+    "org/cinnamon/desktop/applications/terminal" = {
+      exec = "kitty";
+      # exec-arg = "-e";
+    };
+    "org/cinnamon/desktop/interface" = {
+      can-change-accels = true;
+    };
+  };
+
+  home.file = {
+    ".gnome2/accels/nemo".text = ''
+      (gtk_accel_path "<Actions>/DirViewActions/OpenInTerminal" "F4")
+    '';
+  };
 
   programs.zen-browser = {
     enable = true;
@@ -46,6 +65,7 @@
     prismlauncher
     keepass
     heroic
+    davinci-resolve
     inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.openscad-unstable
     (pkgs.runCommand "orca-slicer-wrapped" { buildInputs = [ pkgs.makeWrapper ]; } ''
       makeWrapper ${pkgs.orca-slicer}/bin/orca-slicer $out/bin/orca-slicer \
@@ -147,8 +167,9 @@
       vpndown = "sudo systemctl stop openvpn-nordvpn.service";
       topup = "hyprctl keyword monitor HDMI-A-3,1440x900@60,560x-900,1";
       topdown = "hyprctl keyword monitor HDMI-A-3,disable";
-      tvup = "hyprctl keyword monitor HDMI-A-1,3840x2160@60,-1280x0,3";
+      tvup = "hyprctl keyword monitor HDMI-A-1,3840x2160@60,-1920x0,2";
       tvdown = "hyprctl keyword monitor HDMI-A-1,disable";
+      keepon = "systemd-inhibit --what=sleep --why=\"Jellyfin streaming\" sleep infinity";
     };
   };
 
